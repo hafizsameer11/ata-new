@@ -1,0 +1,8 @@
+.hero-page0 {
+    transform: translateX(0);
+    opacity: 1;
+}
+.hero-page1 {
+    right: 0 !important;
+    opacity: 1;
+}

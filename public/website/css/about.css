@@ -1,0 +1,61 @@
+:root {
+    --primary-color: #EE1C25;
+}
+.about-section-1 {
+    background-position: center;
+    background-size:cover;
+    padding: 100px 0;
+}
+.about-section-1 h1 {
+    font-size: 40px;
+    font-weight: 900; 
+    color: rgb(57, 39, 39);
+    letter-spacing: 2px;
+}
+
+.about-section-3 {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.about-section-3 > div {
+    width: 50%;
+}
+.about-section-5 {
+    background-position: center;
+    background-size: cover;
+    padding: 100px;
+    border-image: linear-gradient(to top , #0000005f , #0000004a) 1 fill;
+}
+.about-section-6 .swiper-wrapper {
+    height: fit-content;
+}
+.about-section-6 .swiper {
+    height: fit-content;
+}
+.about-section-6 .swiper-slide{
+    height: fit-content;
+}
+.about-section-6 .swiper-slide:hover{
+    transform: none;
+}
+.swiper-button-next::after ,
+.swiper-button-prev::after {
+    color: var(--primary-color);
+    font-size: 20px !important;
+}
+
+@media screen and (max-width:1024px){
+    .about-section-3 {
+        flex-direction: column;
+    }
+    .about-section-3 > div {
+        width: 100%;
+    }
+    .about-section-5 {
+        padding: 50px;
+    }
+    .review-swiper {
+        width: 100% !important;
+    }
+}
