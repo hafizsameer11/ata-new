@@ -61,4 +61,33 @@ document.addEventListener("DOMContentLoaded", function () {
         spaceBetween: 20,
         slidesPerView: 1,
     });
+
+    $('.button-unset').on('click', function () {
+        $('.website-description').toggleClass('show-right');
+    })
+    $('.close-description-btn').on('click', function () {
+        $('.website-description').toggleClass('show-right');
+    })
+    const swiper_product = new Swiper('.swiper-product-view', {
+        loop: true,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        spaceBetween: 20,
+        slidesPerView: "auto",
+        centeredSlides: true,
+    });
+    const tabs = document.querySelectorAll('.tab-btn');
+    const contents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            contents.forEach(c => c.classList.remove('active'));
+            tab.classList.add('active');
+            document.getElementById(tab.dataset.tab).classList.add('active');
+        });
+    });
+
 });

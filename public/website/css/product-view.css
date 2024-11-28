@@ -1,0 +1,171 @@
+.swiper-product-view {
+    overflow: hidden;
+}
+
+.swiper-product-view .swiper-slide {
+    width: 40%;
+}
+
+.swiper-pagination {
+    position: static;
+
+}
+
+/* Tabs styles */
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    background-color: #f0f0f0;
+    font-size: 16px;
+    border-radius: 4px;
+    font-weight: 800;
+    transition: background-color 0.3s;
+}
+
+.tab-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.tab-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.content {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.review-inputCan {
+    display: flex;
+    flex-wrap: wrap;
+    /* gap: 20px; */
+}
+
+.review-inputCan>div:first-child {
+    width: 80%;
+}
+
+.review-inputCan>div:last-child {
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.review-inputCan>div:last-child button {
+    width: 90%;
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.fas.fa-star {
+    font-size: 20px;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+}
+
+.fas.fa-star.highlight {
+    color: #f1c40f;
+}
+
+.fas.fa-star.persist-highlight {
+    color: #f39c12;
+}
+.user-review-can {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-height: 500px;
+    overflow: auto;
+}
+.review-body {
+    padding-left: 36px;
+}
+.sidebar .card{
+    position: relative;
+}
+.sidebar .card .booking-line {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 80%;
+    height: 4px;
+    border-radius: 0 0 10px 10px;
+    transform: translateX(-50%);
+    background-color: var(--primary-color);
+}
+.vard {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.sidebar .card .card-header{
+    background-color: transparent;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.small-text {
+    font-size: 14px;
+}
+.book-btn, 
+.download-btn {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 800;
+    text-transform: capitalize;
+}
+.book-btn:hover,
+.download-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+.download-btn {
+    font-size: 15px;
+}
+
+
+@media screen and (max-width:1024px) {
+    .swiper-product-view .swiper-slide {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width:767px) {
+    .review-inputCan input {
+        width: 100%;
+    }
+
+    .review-inputCan button {
+        width: 100%;
+    }
+    .tabs-can {
+        padding: 10px !important;
+    }
+    .tab-btn {
+        padding: 10px;
+        cursor: pointer;
+        border: none;
+        background-color: #f0f0f0;
+        font-size: 14px;
+        border-radius: 4px;
+        font-weight: 800;
+        transition: background-color 0.3s;
+    }
+}
