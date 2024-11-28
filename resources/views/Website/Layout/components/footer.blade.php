@@ -16,9 +16,9 @@
     <div class="footer-box p-2 pt-4">
         <h6 class="theme-text">Quick Links</h6>
         <div class="d-flex gap-2 flex-column mt-4">
-            <a href="#" class="qucik-link">Home</a>
+            <a href="{{route('home')}}" class="qucik-link">Home</a>
             <a href="#" class="qucik-link">Destination</a>
-            <a href="#" class="qucik-link">Free & Easy</a>
+            <a href="{{route('activities')}}" class="qucik-link">Free & Easy</a>
             <a href="{{route('about')}}" class="qucik-link">About Us</a>
             <a href="#" class="qucik-link">Contact Us</a>
         </div>

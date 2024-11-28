@@ -7,7 +7,7 @@
     padding: 100px 0;
 }
 .about-section-1 h1 {
-    font-size: 40px;
+    font-size: 50px;
     font-weight: 900; 
     color: rgb(57, 39, 39);
     letter-spacing: 2px;
@@ -45,6 +45,22 @@
     font-size: 20px !important;
 }
 
+.card-footer-read {
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    color: white;
+    width: fit-content;
+    margin: 10px auto;
+    padding: 5px 10px;
+}
+.card-footer-read:hover {
+    background-color: transparent;
+    color: var(--primary-color);
+}
+.act-tour-img {
+    min-width: 300px;
+}
+
 @media screen and (max-width:1024px){
     .about-section-3 {
         flex-direction: column;
@@ -57,5 +73,27 @@
     }
     .review-swiper {
         width: 100% !important;
+    }
+    .act-tour-img {
+        max-height: 150px;
+    }
+    .act-tours {
+        flex-direction: column;
+    }
+    .tour-description-price h6{
+        font-size: 12px;
+    }
+    .tour-description-price h5{
+        font-size: 14px;
+    }
+    .act-tour-description {
+        display: none;
+    }
+    .act-day-time i,
+    .act-day-time span{
+        font-size: 12px;
+    }
+    .act-country {
+        font-size: 12px;
     }
 }

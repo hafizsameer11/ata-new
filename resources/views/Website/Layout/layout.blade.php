@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <link rel="stylesheet" href="{{ asset('website/css/style.css') }}">
     <link rel="stylesheet" href="{{asset('website/css/about.css')}}">
+    <link rel="stylesheet" href="{{asset('website/css/product-view.css')}}">
     <link rel="stylesheet" href="{{asset('website/css/animtion.css')}}">
     @stack('css')
 </head>
