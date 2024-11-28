@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CountryController;
+use App\Http\Controllers\CityController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -20,3 +22,9 @@ Route::get('/product_view', function () {
 Route::get('/checkout', function () {
     return view('Website.checkout.index');
 })->name('checkout');
+Route::get('/dashboard', function () {
+    return view('Admin.dashboard');
+})->name('dashboard');
+
+Route::resource('country',CountryController::class);
+Route::resource('city',CityController::class);
