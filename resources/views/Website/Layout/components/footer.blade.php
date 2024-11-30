@@ -20,7 +20,7 @@
             <a href="#" class="qucik-link">Destination</a>
             <a href="{{route('activities')}}" class="qucik-link">Free & Easy</a>
             <a href="{{route('about')}}" class="qucik-link">About Us</a>
-            <a href="#" class="qucik-link">Contact Us</a>
+            <a href="{{route('contact')}}" class="qucik-link">Contact Us</a>
         </div>
     </div>
     <div class="footer-box p-2 pt-4">

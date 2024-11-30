@@ -1,10 +1,10 @@
 @extends('Admin.index')
 @section('css')
 <style>
-    .table th{
+    /* .table th{
     background-color: #1b82ec !important;
-       color: white !important;
-}
+       color: white !important; */
+/* } */
 </style>
 @endsection
 @section('content')

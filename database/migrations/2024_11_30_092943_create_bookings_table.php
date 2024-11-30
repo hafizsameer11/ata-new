@@ -11,25 +11,25 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bookings', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->string('phone');
-            $table->string('adult');
-            $table->string('young');
-            $table->string('child');
-            $table->string('orderno');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('tour_id')->constrained()->onDelete('cascade');
-            $table->foreignId('plantour_id')->constrained()->onDelete('cascade');
-            $table->decimal('total_price',10,2);
-            $table->boolean('pay')->default(0);
-            $table->string('pay_type')->default('pay_later');
-            $table->boolean('user_status')->default(0);
-            $table->boolean('status')->default(0);
-            $table->timestamps();
-        });
+        // Schema::create('bookings', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->string('name');
+        //     $table->string('email');
+        //     $table->string('phone');
+        //     $table->string('adult');
+        //     $table->string('young');
+        //     $table->string('child');
+        //     $table->string('orderno');
+        //     $table->foreignId('user_id')->constrained()->onDelete('cascade');
+        //     $table->foreignId('tour_id')->constrained()->onDelete('cascade');
+        //     $table->foreignId('plantour_id')->constrained()->onDelete('cascade');
+        //     $table->decimal('total_price',10,2);
+        //     $table->boolean('pay')->default(0);
+        //     $table->string('pay_type')->default('pay_later');
+        //     $table->boolean('user_status')->default(0);
+        //     $table->boolean('status')->default(0);
+        //     $table->timestamps();
+        // });
     }
 
     /**

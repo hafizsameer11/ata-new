@@ -18,7 +18,7 @@ class TourController extends Controller
      */
     public function index()
     {
-        $tours = Tour::with('images', 'country')->where('one_day' , 0 )->get();
+        $tours = Tour::with('images', 'country')->where('one_day', 0)->get();
         return view('Admin.Tour.list', compact('tours'));
     }
 
@@ -59,6 +59,7 @@ class TourController extends Controller
             'child_room' => 'required|numeric',
         ]);
 
+
         // Create the main tour
         $tour = Tour::create([
             'name' => $request->name,
@@ -96,7 +97,14 @@ class TourController extends Controller
                 ]);
             }
         }
-        Tempimage::where('status', 0)->delete();
+        Tempimage::where('status', 0)->get();
+        // usign forach deleting iamge from foler and then el
+        foreach (Tempimage::where('status', 0)->get() as $image) {
+            $image->delete();
+            $image->image->delete();
+        }
+
+
         // Return success response
         return response()->json([
             'message' => 'Tour and plans added successfully.',
@@ -109,7 +117,7 @@ class TourController extends Controller
         $tour = Tour::with(['plans', 'images'])->findOrFail($id); // Fetch tour with related plans and images
         $countries = Country::all(); // Get all countries for the dropdown
 
-        return view('admin.tours.edit', compact('tour', 'countries'));
+        return view('Admin.Tour.create.ImagesUpload', compact('tour', 'countries'));
     }
     public function plans($id)
     {
@@ -132,7 +140,7 @@ class TourController extends Controller
      */
     public function edit(string $id)
     {
-        $tour = Tour::with('images','plans')->find($id);
+        $tour = Tour::with('images', 'plans')->find($id);
         $countries = Country::where('status', 1)->get();
         // return $tour ;
         return view('Admin.Tour.edit', compact('countries', 'tour'));
@@ -210,7 +218,7 @@ class TourController extends Controller
             }
         }
 
-        return redirect()->route('tours.index')->with('success','The Tour updated successfully');
+        return redirect()->route('tours.index')->with('success', 'The Tour updated successfully');
 
     }
     public function editSingle(string $id)
@@ -261,7 +269,7 @@ class TourController extends Controller
 
     public function One_day_index()
     {
-        $tours = Tour::with('images', 'country')->where('one_day',1)->get();
+        $tours = Tour::with('images', 'country')->where('one_day', 1)->get();
         return view('Admin.Tour.list', compact('tours'));
     }
 }

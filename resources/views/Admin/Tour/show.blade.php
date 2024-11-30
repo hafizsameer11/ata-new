@@ -47,7 +47,7 @@
             <hr>
             <div class="gallery-can mt-4">
                 @forelse ($tour->images as $image)
-                    <img src="{{ asset('storage/' . $image->image) }}" alt="gallery img" class="rounded img">
+                    <img src="{{ asset( 'storage/'.$image->image) }}" alt="gallery img" class="rounded img">
                 @empty
                     <p>No images uploaded</p>
                 @endforelse

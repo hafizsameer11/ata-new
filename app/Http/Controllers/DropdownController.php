@@ -43,6 +43,8 @@ class DropdownController extends Controller
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
+            //save in public directory instead of storage
+            $filename = time() . '.' . $file->getClientOriginalExtension();
             $path = $file->store('tours/images', 'public'); // Save in public storage
             $tourImage = Tempimage::create([
                 'image' => $path,

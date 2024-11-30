@@ -34,6 +34,9 @@ Route::get('/contact', function () {
 Route::get('/profile', function () {
     return view('Website.profile.profile');
 })->name('profile');
+Route::get('myTours',function(){
+    return view('Website.mytour.index');
+})->name('mytour');
 
 
 
@@ -42,15 +45,14 @@ Route::prefix('/admin')->group(function () {
     Route::get('/dashboard', function () {
         return view('Admin.dashboard');
     })->name('dashboard');
-Route::get('/dashboard', function () {
-    return view('Admin.dashboard');
-})->name('dashboard');
-Route::get('/message', function () {
-    return view('admin.message.index');
-})->name('message');
+    Route::get('/dashboard', function () {
+        return view('Admin.dashboard');
+    })->name('dashboard');
+    Route::get('/message', function () {
+        return view('admin.message.index');
+    })->name('message');
 
     Route::resource('country', CountryController::class);
-    Route::resource('city', CityController::class);
     Route::resource('/plan_tours',PlantourController::class);
     Route::resource('tours', TourController::class);
     Route::get('/tours/image_uploads/{id}', [TourController::class, 'imagesUpload'])->name('tour.imagesUpload');

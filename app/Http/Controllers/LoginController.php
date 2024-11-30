@@ -12,11 +12,12 @@ class LoginController extends Controller
         $save = $request->validate([
             'name'=>'required|string',
             'email'=> 'required|email',
-            'password'=> 'required|confirmed',
+            'password'=> 'required|confirmed|min:8',
         ]);
-        User::create($save);
+        $user=  User::create($save);
 
-        // Auth::login($save);
+        // login
+        Auth::login($user);
 
         return back()->with('registration_success', true);
     }
