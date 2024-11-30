@@ -354,7 +354,7 @@
                                 <span>Cites</span>
                             </a>
                         </li>
-
+                        
                         <li>
                             <a href="javascript: void(0);" class="has-arrow waves-effect">
                                 <i class="fa-regular fa-clipboard"></i>
@@ -374,6 +374,12 @@
                                 <li><a href="{{ route('plan_tours.index') }}"> List </a></li>
                                 <li><a href="{{ route('plan_tours.create') }}"> Create </a></li>
                             </ul>
+                        </li>
+                        <li>
+                            <a href="{{ route('message.index') }}" class="waves-effect">
+                                <i class="fa-solid fa-comment"></i>
+                                <span>Messages</span>
+                            </a>
                         </li>
                         <li>
                             <a href="javascript: void(0);" class="has-arrow waves-effect">

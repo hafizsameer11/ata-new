@@ -6,6 +6,8 @@ use App\Http\Controllers\DropdownController;
 use App\Http\Controllers\PlantourController;
 use App\Http\Controllers\TourController;
 use App\Http\Controllers\TourplanController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\MessageController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -34,6 +36,15 @@ Route::prefix('/admin')->group(function () {
     Route::get('/dashboard', function () {
         return view('Admin.dashboard');
     })->name('dashboard');
+Route::get('/dashboard', function () {
+    return view('Admin.dashboard');
+})->name('dashboard');
+Route::get('/contact', function () {
+    return view('Website.contact.contact');
+})->name('contact');
+Route::get('/message', function () {
+    return view('admin.message.index');
+})->name('message');
 
     Route::resource('country', CountryController::class);
     Route::resource('city', CityController::class);
@@ -45,5 +56,10 @@ Route::prefix('/admin')->group(function () {
     Route::delete('/tours/images/remove', [DropdownController::class, 'removeImage'])->name('tours.images.remove');
     Route::delete('/tours/images/removeUploaded', [DropdownController::class, 'removeUploaded'])->name('tours.images.removeUploaded');
     Route::resource('/tourplans',TourplanController::class);
-    Route::resource('/plan_tours',PlantourController::class);
+    Route::resource('country',CountryController::class);
+    Route::resource('city',CityController::class);
+    Route::resource('message',MessageController::class);
 });
+
+
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
