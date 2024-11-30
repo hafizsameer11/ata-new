@@ -14,6 +14,11 @@
         .table-container {
             margin-top: 30px;
         }
+        th{
+            background-color: #1b82ec !important;
+               color: white !important;
+           
+           }
 
         .table thead {
             background-color: #EE1C25;
@@ -46,7 +51,7 @@
                 City</a>
         </div>
         <div class="table-container table-responsive">
-            <table class="table table-striped table-bordered">
+            <table class="table table-responsive table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>City Names</th>
@@ -59,7 +64,7 @@
                     @foreach ($cities as $item)
                     <tr>
                         <td>{{ $item->name }}</td>
-                        <td class="status-active"> <span class="btn btn-{{ $item->status ? 'success' : 'danger' }}">
+                        <td class="status-active"> <span class="badge btn-{{ $item->status ? 'success' : 'danger' }}">
                             {{ $item->status ? 'Active' : 'Inactive' }}
                         </span></td>
                         <td><div class="d-flex align-items-center gap-2">
