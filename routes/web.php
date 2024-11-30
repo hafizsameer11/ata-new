@@ -55,10 +55,10 @@ Route::get('/message', function () {
     Route::delete('/tours/images/remove', [DropdownController::class, 'removeImage'])->name('tours.images.remove');
     Route::delete('/tours/images/removeUploaded', [DropdownController::class, 'removeUploaded'])->name('tours.images.removeUploaded');
     Route::resource('/tourplans',TourplanController::class);
+    Route::resource('country',CountryController::class);
+    Route::resource('city',CityController::class);
+    Route::resource('message',MessageController::class);
 });
-Route::resource('country',CountryController::class);
-Route::resource('city',CityController::class);
-Route::resource('message',MessageController::class);
 
 
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
