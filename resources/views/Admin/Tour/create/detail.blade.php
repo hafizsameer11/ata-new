@@ -6,112 +6,133 @@
     <div class="container my-5">
         <form id="tourForm">
             <!-- Dropzone for Images -->
-            <div class="card p-4">
-                <h1>Images</h1>
-                <hr>
-                <div class="form-group mb-4">
-                    <label for="tourImages">Upload Images</label>
-                    <div id="tourImagesDropzone" class="dropzone"></div>
-                </div>
-            </div>
-
-            <!-- Form groups in a row -->
-            <div class="card p-4">
-                <h1>The Detail</h1>
-                <hr>
-                <div class="row">
-                    <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-8 p-2">
+                    <div class="card p-4">
+                        <h1>Images</h1>
+                        <hr>
                         <div class="form-group mb-4">
-                            <label for="country_id">Country</label>
-                            <select class="form-control" id="country_id" name="country_id">
-                                <option value="">Select Country</option>
-                                @foreach ($countries as $country)
-                                    <option value="{{ $country->id }}">{{ $country->name }}</option>
-                                @endforeach
-                            </select>
+                            <label for="tourImages">Upload Images</label>
+                            <div id="tourImagesDropzone" class="dropzone"></div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+        
+                    <!-- Form groups in a row -->
+                    <div class="card p-4">
+                        <h1>The Detail</h1>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group mb-4">
+                                    <label for="country_id">Country</label>
+                                    <select class="form-control" id="country_id" name="country_id">
+                                        <option value="">Select Country</option>
+                                        @foreach ($countries as $country)
+                                            <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-4">
+                                    <label for="name">Tour Name</label>
+                                    <input type="text" class="form-control" id="name" name="name"
+                                        placeholder="Enter tour name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-4">
+                                    <label for="tour_type">Tour Type</label>
+                                    <input type="text" class="form-control" id="tour_type" name="tour_type"
+                                        placeholder="Enter tour type (e.g., Adventure)" required>
+                                </div>
+                            </div>
+        
+                        </div>
+        
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group mb-4">
+                                    <label for="duration">Duration</label>
+                                    <input type="text" class="form-control" id="duration" name="duration"
+                                        placeholder="Enter duration (e.g., 3 days)" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-4">
+                                    <label for="max_member">Max Members</label>
+                                    <input type="number" class="form-control" id="max_member" name="max_member"
+                                        placeholder="Enter max members" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-4">
+                                    <label for="min_age">Minimum Age</label>
+                                    <input type="number" class="form-control" id="min_age" name="min_age"
+                                        placeholder="Enter minimum age" required>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group mb-4">
-                            <label for="name">Tour Name</label>
-                            <input type="text" class="form-control" id="name" name="name"
-                                placeholder="Enter tour name" required>
+                            <label for="description">Description</label>
+                            <textarea class="form-control bg-light" id="description" name="description" rows="3"
+                                placeholder="Enter tour description" required></textarea>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="include">Includes</label>
+                            <textarea class="form-control" id="include" name="include" rows="2"
+                                placeholder="Enter included features (comma-separated)" required></textarea>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group mb-4">
-                            <label for="tour_type">Tour Type</label>
-                            <input type="text" class="form-control" id="tour_type" name="tour_type"
-                                placeholder="Enter tour type (e.g., Adventure)" required>
+        
+                    <div class="card p-4">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <h1>The Plans</h1>
+                        </div>
+                        <div class="plan-can">
+                            <div style="height: 5px; background-color:black;" class="my-4 rounded"></div>
+                            <div class="form-group mb-2">
+                                <label for="name">Name</label>
+                                <input type="text" name="plan_name[]" id="plan_name" class="form-control" required placeholder="Enter name ( Day 1 , week 1)">
+                            </div>
+                            <div class="form-group mb-2">
+                                <label for="description">Description</label>
+                                <textarea name="plan_description[]" id="plan_description" class="form-control" cols="30" rows="10" placeholder="Enter plan description"></textarea>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label for="city">City</label>
+                                <select name="city_id[]" id="city_id" class="form-control">
+                                    <option value="">Select City</option>
+                                    @foreach ($cities as $city)
+                                        <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div id="plan-container">
+        
+                        </div>
+                        <!-- Add Plan Button -->
+                        <button type="button" id="add-plan" class="btn btn-primary mt-3 w-100">Add Another Plan</button>
+                    </div>
+                </div>
+                <div class="col-md-4 p-2">
+                    <div class="p-4 card mb-4">
+                        <h1>Room price</h1>
+                        <div class="form-group">
+                            <label for="single_room">Single room</label>
+                            <input type="text" name="single_room" id="single_room" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="twin_room">Twin room</label>
+                            <input type="text" name="twin_room" id="twin_room" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="child_room">Child room</label>
+                            <input type="text" name="child_room" id="child_room" class="form-control" required>
                         </div>
                     </div>
-
                 </div>
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group mb-4">
-                            <label for="duration">Duration</label>
-                            <input type="text" class="form-control" id="duration" name="duration"
-                                placeholder="Enter duration (e.g., 3 days)" required>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group mb-4">
-                            <label for="max_member">Max Members</label>
-                            <input type="number" class="form-control" id="max_member" name="max_member"
-                                placeholder="Enter max members" required>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group mb-4">
-                            <label for="min_age">Minimum Age</label>
-                            <input type="number" class="form-control" id="min_age" name="min_age"
-                                placeholder="Enter minimum age" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group mb-4">
-                    <label for="description">Description</label>
-                    <textarea class="form-control bg-light" id="description" name="description" rows="3"
-                        placeholder="Enter tour description" required></textarea>
-                </div>
-                <div class="form-group mb-4">
-                    <label for="include">Includes</label>
-                    <textarea class="form-control" id="include" name="include" rows="2"
-                        placeholder="Enter included features (comma-separated)" required></textarea>
-                </div>
-            </div>
-
-            <div class="card p-4">
-                <div class="d-flex align-items-center justify-content-between">
-                    <h1>The Plans</h1>
-                </div>
-                <div class="plan-can">
-                    <div style="height: 5px; background-color:black;" class="my-4 rounded"></div>
-                    <div class="form-group mb-2">
-                        <label for="name">Name</label>
-                        <input type="text" name="plan_name[]" id="plan_name" class="form-control" required>
-                    </div>
-                    <div class="form-group mb-2">
-                        <label for="description">Description</label>
-                        <textarea name="plan_description[]" id="plan_description" class="form-control" cols="30" rows="10"></textarea>
-                    </div>
-                    <div class="form-group mb-4">
-                        <label for="city">City</label>
-                        <select name="city_id[]" id="city_id" class="form-control">
-                            <option value="">Select City</option>
-                            @foreach ($cities as $city)
-                                <option value="{{ $city->id }}">{{ $city->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div id="plan-container">
-
-                </div>
-                <!-- Add Plan Button -->
-                <button type="button" id="add-plan" class="btn btn-primary mt-3 w-100">Add Another Plan</button>
             </div>
 
             <div class="d-flex justify-content-end">

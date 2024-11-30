@@ -15,7 +15,10 @@ class Tour extends Model
         'min_age',
         'tour_type',
         'include',
-        'status'
+        'status',
+        'single_room',
+        'twin_room',
+        'child_room',
     ];
     public function images(){
         return $this->hasMany(Tourimage::class);

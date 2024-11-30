@@ -66,11 +66,16 @@
                 <h4><span class="text-danger">Name:</span> {{ $tour->name }}</h4>
                 <h4><span class="text-danger">Tour type:</span> {{ $tour->tour_type }}</h4>
             </div>
-            <div class="d-flex align-items-center gap-2 w-100">
-                <h6 class="w-100"><span class="text-danger">Country:</span> {{ $tour->country->name }} </h6>
-                <h6 class="w-100"><span class="text-danger">Duration:</span> {{ $tour->duration }} </h6>
-                <h6 class="w-100"><span class="text-danger">Max Member:</span> {{ $tour->max_member }} </h6>
-                <h6 class="w-100"><span class="text-danger">Min age:</span> {{ $tour->min_age }} </h6>
+            <div class="d-flex align-items-center gap-2 w-100 mt-4">
+                <h6 class="w-100"><span class="text-danger">Country: </span> {{ $tour->country->name }} </h6>
+                <h6 class="w-100"><span class="text-danger">Duration: </span> {{ $tour->duration }} </h6>
+                <h6 class="w-100"><span class="text-danger">Max Member: </span> {{ $tour->max_member }} </h6>
+                <h6 class="w-100"><span class="text-danger">Min age: </span> {{ $tour->min_age }} </h6>
+            </div>
+            <div class="d-flex align-items-center gap-2 w-100 mt-4">
+                <h6 class="w-100"><span class="text-danger">Sinlge room: </span> ${{ $tour->single_room }} </h6>
+                <h6 class="w-100"><span class="text-danger">Twin room: </span> ${{ $tour->twin_room }} </h6>
+                <h6 class="w-100"><span class="text-danger">Child room: </span> ${{ $tour->child_room }} </h6>
             </div>
             <div class="mt-4">
                 <h3 class="text-danger">Description</h3>

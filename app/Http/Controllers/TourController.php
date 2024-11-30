@@ -55,6 +55,9 @@ class TourController extends Controller
             'city_id.*' => 'required|exists:cities,id',
             'images' => 'nullable|array',
             'images.*' => 'required|string',
+            'single_room' => 'required|string',
+            'twin_room' => 'required|string',
+            'child_room' => 'required|string',
         ]);
 
         // Create the main tour
@@ -67,6 +70,9 @@ class TourController extends Controller
             'tour_type' => $request->tour_type,
             'include' => $request->include,
             'country_id' => $request->country_id,
+            'single_room' => $request->single_room,
+            'twin_room' => $request->twin_room,
+            'child_room' => $request->child_room,
         ]);
 
         // Save the tour plans
@@ -140,6 +146,9 @@ class TourController extends Controller
             'tour_type' => 'required|string|max:100',
             'include' => 'required|string',
             'country_id' => 'required|exists:countries,id',
+            'single_room' => 'required|string',
+            'twin_room' => 'required|string',
+            'child_room' => 'required|string',
         ]);
 
         $tour->update([
@@ -151,6 +160,9 @@ class TourController extends Controller
             'tour_type' => $request->tour_type,
             'include' => $request->include,
             'country_id' => $request->country_id,
+            'single_room' => $request->single_room,
+            'twin_room' => $request->twin_room,
+            'child_room' => $request->child_room,
         ]);
         return response()->json([
             'message' => 'Tour and plans added successfully.',

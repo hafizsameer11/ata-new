@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('plantours', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('tour_id')->constrained()->onDelete('cascade');
+            $table->decimal('price',10,2);
+            $table->decimal('discount',10,2);
+            $table->date('date');
+            $table->time('time');
             $table->timestamps();
         });
     }

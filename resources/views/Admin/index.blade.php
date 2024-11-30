@@ -371,8 +371,8 @@
                                 <span>Plan Tour</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="{{ route('tours.index') }}"> List </a></li>
-                                <li><a href="{{ route('tours.create') }}"> Create </a></li>
+                                <li><a href="{{ route('plan_tours.index') }}"> List </a></li>
+                                <li><a href="{{ route('plan_tours.create') }}"> Create </a></li>
                             </ul>
                         </li>
                         <li>

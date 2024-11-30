@@ -3,6 +3,7 @@
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\DropdownController;
+use App\Http\Controllers\PlantourController;
 use App\Http\Controllers\TourController;
 use App\Http\Controllers\TourplanController;
 use Illuminate\Support\Facades\Route;
@@ -44,4 +45,5 @@ Route::prefix('/admin')->group(function () {
     Route::delete('/tours/images/remove', [DropdownController::class, 'removeImage'])->name('tours.images.remove');
     Route::delete('/tours/images/removeUploaded', [DropdownController::class, 'removeUploaded'])->name('tours.images.removeUploaded');
     Route::resource('/tourplans',TourplanController::class);
+    Route::resource('/plan_tours',PlantourController::class);
 });
