@@ -16,8 +16,12 @@
            }
 
            .table thead {
-               background-color: #EE1C25;
-               color: white;
+               background-color: #1b82ec !important;
+               color: white !important;
+           }
+           th{
+            background-color: #1b82ec !important;
+               color: white !important;
            }
 
            .status-active {
@@ -46,7 +50,7 @@
                </div>
            @endif
            <div class="table-container table-responsive">
-               <table class="table table-striped table-bordered">
+               <table class="table table-responsive table-bordered table-striped">
                    <thead>
                        <tr>
                            <th>Country Name</th>
@@ -60,7 +64,7 @@
                            <tr>
                                <td>{{ $item->name }}</td>
                                <td class="status-active">
-                                   <span class="btn btn-{{ $item->status ? 'success' : 'danger' }}">
+                                   <span class="badge  btn-{{ $item->status ? 'success' : 'danger' }}">
                                        {{ $item->status ? 'Active' : 'Inactive' }}
                                    </span>
                                </td>

@@ -110,7 +110,10 @@ File: Main Css File
   top: 0;
   color: #949a9e;
 }
-
+.table th{
+    background-color: #1b82ec !important;
+       color: white !important;
+}
 .megamenu-list li {
   position: relative;
   padding: 5px 0px;
