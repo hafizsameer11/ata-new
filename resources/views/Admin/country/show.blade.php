@@ -44,7 +44,7 @@
                    Country</a>
            </div>
            @if (session('success'))
-               <div class="alert alert-success alert-dismissible fade show" role="alert">
+               <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
                    {{ session('success') }}
                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                </div>
@@ -54,36 +54,42 @@
                    <thead>
                        <tr>
                            <th>Country Name</th>
-                           <th>Country Status</th>
                            <th>City Names</th>
-                           <th colspan="2">Actions</th>
+                           <th>Country Status</th>
+                           <th>Actions</th>
                        </tr>
                    </thead>
                    <tbody>
                        @foreach ($countries as $item)
                            <tr>
                                <td>{{ $item->name }}</td>
+                               <td>
+                                   @forelse ($item->cities as $city)
+                                       <div class="d-flex align-items-center gap-2">
+                                           <span class="btn btn-sm btn-{{ $city->status ? 'success' : 'danger' }}"></span>
+                                           {{ $city->name }}
+                                       </div>
+                                    @empty 
+                                        <div class="d-flex align-items-center gap-2">
+                                            <a href="{{route('city.create')}}" class="btn btn-success btn-sm">Add new city</a>
+                                            <p class="m-0">No cities found</p>
+                                        </div>
+                                   @endforelse
+                               </td>
                                <td class="status-active">
                                    <span class="badge  btn-{{ $item->status ? 'success' : 'danger' }}">
                                        {{ $item->status ? 'Active' : 'Inactive' }}
                                    </span>
                                </td>
                                <td>
-                                   @foreach ($item->cities as $city)
-                                       <div class="d-flex align-items-center gap-2">
-                                           {{ $city->name }}
-                                           <span class="btn btn-sm btn-{{ $city->status ? 'success' : 'danger' }}"></span>
-                                       </div>
-                                   @endforeach
-                               </td>
-                               <td><a class="btn btn-warning" href="{{ route('country.edit', $item->id) }}">Update</a>
-                               </td>
-                               <td>
-                                   <form action="{{ route('country.destroy', $item->id) }}" method="post">
-                                       @csrf
-                                       @method('DELETE')
-                                       <button class="btn btn-danger">Delete</button>
-                                   </form>
+                                   <div class="d-flex align-items-center gap-2">
+                                        <a class="btn btn-warning" href="{{ route('country.edit', $item->id) }}">Update</a>
+                                       <form action="{{ route('country.destroy', $item->id) }}" method="post">
+                                           @csrf
+                                           @method('DELETE')
+                                           <button class="btn btn-danger">Delete</button>
+                                       </form>
+                                   </div>
                                </td>
                            </tr>
                        @endforeach

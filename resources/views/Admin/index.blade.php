@@ -2,32 +2,63 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8" />
     <title>ATA Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
-    <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
+
+    <!-- Stylesheets -->
+    <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
         integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <!-- Bootstrap Css -->
+    <!-- Bootstrap CSS -->
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
-    <!-- Icons Css -->
+    <!-- Icons CSS -->
     <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
-    <!-- App Css-->
+    <!-- Dropzone CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.css">
+    <!-- App CSS -->
     <link href="{{ asset('assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    {{-- summernote --}}
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote.min.css" rel="stylesheet">
+
+    <style>
+        .img-viewer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.376);
+            z-index: 999999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .img-viewer img {
+            width: 50%;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+
+    <!-- Custom CSS (optional for page-specific styles) -->
     @yield('css')
 </head>
 
 <body data-topbar="colored">
+    <!-- Begin Page Content -->
 
-    <!-- <body data-layout="horizontal" data-topbar="colored"> -->
-
-    <!-- Begin page -->
+    <!-- Content goes here -->
     <div id="layout-wrapper">
 
         <header id="page-topbar">
@@ -332,6 +363,26 @@
 
                         <li>
                             <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                <i class="fa-regular fa-clipboard"></i>
+                                <span>Tour</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{{ route('tours.index') }}"> List </a></li>
+                                <li><a href="{{ route('tours.create') }}"> Create </a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                <i class="fa-regular fa-clipboard"></i>
+                                <span>Plan Tour</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{{ route('tours.index') }}"> List </a></li>
+                                <li><a href="{{ route('tours.create') }}"> Create </a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow waves-effect">
                                 <i class="mdi mdi-email"></i>
                                 <span>Email</span>
                             </a>
@@ -357,145 +408,6 @@
         <div class="main-content">
 
             <div class="page-content">
-                {{-- <div class="container-fluid">
-
-                        <!-- start page title -->
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="page-title-box d-flex align-items-center justify-content-between">
-                                    <div class="page-title">
-                                        <h4 class="mb-0 font-size-18">Dashboard</h4>
-                                        <ol class="breadcrumb">
-                                            <li class="breadcrumb-item active">Welcome to ATA Dashboard</li>
-                                        </ol>
-                                    </div>
-
-                                    <div class="state-information d-none d-sm-block">
-                                        <div class="state-graph">
-                                            <div id="header-chart-1" data-colors='["--bs-primary"]'></div>
-                                            <div class="info">Balance $ 2,317</div>
-                                        </div>
-                                        <div class="state-graph">
-                                            <div id="header-chart-2" data-colors='["--bs-danger"]'></div>
-                                            <div class="info">Item Sold 1230</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end page title -->
-
-                        <!-- Start page content-wrapper -->
-                        <div class="page-content-wrapper">
-                            <div class="row">
-                                <div class="col-xl-3 col-md-6">
-                                    <div class="card bg-primary mini-stat position-relative">
-                                        <div class="card-body">
-                                            <div class="mini-stat-desc">
-                                                <h5 class="text-uppercase verti-label font-size-16 text-white-50">Orders
-                                                </h5>
-                                                <div class="text-white">
-                                                    <h5 class="text-uppercase font-size-16 text-white-50">Orders</h5>
-                                                    <h3 class="mb-3 text-white">1,587</h3>
-                                                    <div class="">
-                                                        <span class="badge bg-light text-info"> +11% </span> <span
-                                                            class="ms-2">From previous period</span>
-                                                    </div>
-                                                </div>
-                                                <div class="mini-stat-icon">
-                                                    <i class="mdi mdi-cube-outline display-2"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Col -->
-
-                                <div class="col-xl-3 col-md-6">
-                                    <div class="card bg-primary mini-stat position-relative">
-                                        <div class="card-body">
-                                            <div class="mini-stat-desc">
-                                                <h5 class="text-uppercase verti-label font-size-16 text-white-50">Revenue
-                                                </h5>
-                                                <div class="text-white">
-                                                    <h5 class="text-uppercase font-size-16 text-white-50">Revenue</h5>
-                                                    <h3 class="mb-3 text-white">$46,785</h3>
-                                                    <div class="">
-                                                        <span class="badge bg-light text-danger"> -29% </span> <span
-                                                            class="ms-2">From previous period</span>
-                                                    </div>
-                                                </div>
-                                                <div class="mini-stat-icon">
-                                                    <i class="mdi mdi-buffer display-2"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Col -->
-
-                                <div class="col-xl-3 col-md-6">
-                                    <div class="card bg-primary mini-stat position-relative">
-                                        <div class="card-body">
-                                            <div class="mini-stat-desc">
-                                                <h5 class="text-uppercase verti-label font-size-16 text-white-50">Av. Price
-                                                </h5>
-                                                <div class="text-white">
-                                                    <h5 class="text-uppercase font-size-16 text-white-50">Average Price
-                                                    </h5>
-                                                    <h3 class="mb-3 text-white">15.9</h3>
-                                                    <div class="">
-                                                        <span class="badge bg-light text-primary"> 0% </span> <span
-                                                            class="ms-2">From previous period</span>
-                                                    </div>
-                                                </div>
-                                                <div class="mini-stat-icon">
-                                                    <i class="mdi mdi-tag-text-outline display-2"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Col -->
-
-                                <div class="col-xl-3 col-md-6">
-                                    <div class="card bg-primary mini-stat position-relative">
-                                        <div class="card-body">
-                                            <div class="mini-stat-desc">
-                                                <h5 class="text-uppercase verti-label font-size-16 text-white-50">Pr. Sold
-                                                </h5>
-                                                <div class="text-white">
-                                                    <h5 class="text-uppercase font-size-16 text-white-50">Product Sold
-                                                    </h5>
-                                                    <h3 class="mb-3 text-white">1890</h3>
-                                                    <div class="">
-                                                        <span class="badge bg-light text-info"> +89% </span> <span
-                                                            class="ms-2">From previous period</span>
-                                                    </div>
-                                                </div>
-                                                <div class="mini-stat-icon">
-                                                    <i class="mdi mdi-briefcase-check display-2"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Col -->
-                            </div>
-                            <!-- End Row -->
-
-                           
-                            <!-- end row -->
-
-                           
-                            <!-- end row -->
-
-                           
-
-                        </div>
-                        <!-- end page-content-wrapper-->
-
-                    </div> --}}
                 @yield('content')
                 <!-- Container-fluid -->
             </div>
@@ -520,35 +432,94 @@
         <!-- end main content-->
 
     </div>
-    <!-- END layout-wrapper -->
+    <!-- End Page Content -->
+    <div class="img-viewer"
+        style="
+         display: none;
+         position: fixed; 
+         top: 0; 
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background-color: rgba(0,0,0,0.8);">
+        <img src="" alt="" class="img-container rounded">
+    </div>
 
-    <!-- Right Sidebar -->
-
-    <!-- /Right-bar -->
-
-    <!-- Right bar overlay-->
+    <!-- Right bar overlay -->
     <div class="rightbar-overlay"></div>
 
-    <!-- JAVASCRIPT -->
     <script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap Bundle JS -->
     <script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+    <!-- MetisMenu JS -->
     <script src="{{ asset('assets/libs/metismenu/metisMenu.min.js') }}"></script>
+
+    <!-- Simplebar JS -->
     <script src="{{ asset('assets/libs/simplebar/simplebar.min.js') }}"></script>
+
+    <!-- Waves JS -->
     <script src="{{ asset('assets/libs/node-waves/waves.min.js') }}"></script>
+
+    <!-- jQuery Sparkline -->
     <script src="{{ asset('assets/libs/jquery-sparkline/jquery.sparkline.min.js') }}"></script>
 
     <!-- Peity JS -->
     <script src="{{ asset('assets/libs/peity/jquery.peity.min.js') }}"></script>
 
-    <script src="{{ asset('assets/libs/morris.js/morris.min.js') }}"></script>
-
+    <!-- Raphael JS (dependency for Morris JS) -->
     <script src="{{ asset('assets/libs/raphael/raphael.min.js') }}"></script>
 
-    <!-- Dashboard init JS -->
-    <script src="{{ asset('assets/js/pages/dashboard.init.js') }}"></script>
+    <!-- Morris JS -->
+    <script src="{{ asset('assets/libs/morris.js/morris.min.js') }}"></script>
 
-    <!-- App js -->
+    {{-- dropzone --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
+
+
+    <!-- SweetAlert2 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <!-- Summernote JS -->
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote.min.js"></script>
+
+
+    <!-- App JS -->
     <script src="{{ asset('assets/js/app.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            const imgViewer = document.querySelector('.img-viewer');
+            const imgContainer = imgViewer.querySelector('.img-container');
+            const galleryImages = document.querySelectorAll('.img');
+
+            galleryImages.forEach(img => {
+                img.addEventListener('click', () => {
+                    imgContainer.src = img.src; // Set the clicked image src
+                    imgViewer.style.display = 'block'; // Show the image viewer
+                });
+            });
+
+            // Close the viewer when clicking outside the image or pressing Esc
+            imgViewer.addEventListener('click', (e) => {
+                if (e.target !== imgContainer) {
+                    imgViewer.style.display = 'none'; // Hide the viewer
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    imgViewer.style.display = 'none'; // Hide the viewer
+                }
+            });
+        });
+    </script>
+
+    <!-- Custom Scripts (optional for page-specific scripts) -->
     @yield('js')
 </body>
 

@@ -65,7 +65,7 @@ class CountryController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'name'=> 'required|unique:countries,name',
+            'name'=> 'required|string',
             'status'=> 'required',
         ]);
         $post = Country::findOrFail($id);
@@ -74,7 +74,7 @@ class CountryController extends Controller
         'status' => $request->status,
     ]);
 
-    return redirect()->route('country.index')->with('status','country updated successfully');
+    return redirect()->route('country.index')->with('success','country updated successfully');
     }
 
     /**

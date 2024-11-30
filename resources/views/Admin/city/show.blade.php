@@ -57,7 +57,6 @@
                         <th>City Names</th>
                         <th>City Status</th>
                         <th>Country Name</th>
-                        <th>Country Status</th>
                         <th class="text-center" colspan="2">Actions</th>
                     </tr>
                 </thead>
