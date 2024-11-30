@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\DropdownController;
+use App\Http\Controllers\TourController;
+use App\Http\Controllers\TourplanController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,9 +25,23 @@ Route::get('/product_view', function () {
 Route::get('/checkout', function () {
     return view('Website.checkout.index');
 })->name('checkout');
-Route::get('/dashboard', function () {
-    return view('Admin.dashboard');
-})->name('dashboard');
 
-Route::resource('country',CountryController::class);
-Route::resource('city',CityController::class);
+
+
+// admin
+Route::prefix('/admin')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('Admin.dashboard');
+    })->name('dashboard');
+
+    Route::resource('country', CountryController::class);
+    Route::resource('city', CityController::class);
+    Route::resource('tours', TourController::class);
+    Route::get('/tours/image_uploads/{id}', [TourController::class,'imagesUpload'])->name('tour.imagesUpload'); 
+    Route::get('/tours/plans/{id}', [TourController::class,'plans'])->name('tour.plans'); 
+    Route::post('/tours/images/upload', [DropdownController::class, 'uploadImage'])->name('tours.images.upload');
+    Route::post('/tours/images/EditImages', [DropdownController::class, 'EditImages'])->name('tours.images.EditImages');
+    Route::delete('/tours/images/remove', [DropdownController::class, 'removeImage'])->name('tours.images.remove');
+    Route::delete('/tours/images/removeUploaded', [DropdownController::class, 'removeUploaded'])->name('tours.images.removeUploaded');
+    Route::resource('/tourplans',TourplanController::class);
+});
