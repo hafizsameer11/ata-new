@@ -1,12 +1,12 @@
 @extends('Admin.index')
 @section('content')
     <div class="container mt-4">
-        <h1>Edit Tour Detail</h1>
+        <h1>Edit Tour</h1>
     </div>
     <div class="container my-5">
-        <form id="tourForm">
-
-            <!-- Form groups in a row -->
+        <form id="tourForm" action="{{ route('tours.update', $tour->id) }}" method="POST">
+            @csrf
+            @method('PUT')
             <div class="row">
                 <div class="col-md-8 p-2">
                     <div class="card p-4">
@@ -15,31 +15,42 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group mb-4">
-                                    <label for="country_id">Country</label>
-                                    <select class="form-control" id="country_id" name="country_id">
-                                        <option value="">Select Country</option>
+                                    <label for="country_id">Destination</label>
+                                    <select class="form-control @error('country_id') is-invalid @enderror" id="country_id"
+                                        name="country_id">
+                                        <option value="">Select Destination</option>
                                         @foreach ($countries as $country)
                                             <option value="{{ $country->id }}"
-                                                {{ ($country->id = $tour->country_id) ? 'selected' : '' }}>
+                                                {{ old('country_id', $tour->country_id) == $country->id ? 'selected' : '' }}>
                                                 {{ $country->name }}
                                             </option>
                                         @endforeach
                                     </select>
+                                    @error('country_id')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group mb-4">
                                     <label for="name">Tour Name</label>
-                                    <input type="text" class="form-control" id="name" name="name"
-                                        placeholder="Enter tour name" required value="{{ $tour->name }}">
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                        id="name" name="name" value="{{ old('name', $tour->name) }}"
+                                        placeholder="Enter tour name" required>
+                                    @error('name')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group mb-4">
                                     <label for="tour_type">Tour Type</label>
-                                    <input type="text" class="form-control" id="tour_type" name="tour_type"
-                                        placeholder="Enter tour type (e.g., Adventure)" required
-                                        value="{{ $tour->tour_type }}">
+                                    <input type="text" class="form-control @error('tour_type') is-invalid @enderror"
+                                        id="tour_type" name="tour_type" value="{{ old('tour_type', $tour->tour_type) }}"
+                                        placeholder="Enter tour type (e.g., Adventure)" required>
+                                    @error('tour_type')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -48,62 +59,164 @@
                             <div class="col-md-4">
                                 <div class="form-group mb-4">
                                     <label for="duration">Duration</label>
-                                    <input type="text" class="form-control" id="duration" name="duration"
-                                        placeholder="Enter duration (e.g., 3 days)" required value="{{ $tour->duration }}">
+                                    <input type="text" class="form-control @error('duration') is-invalid @enderror"
+                                        id="duration" name="duration" value="{{ old('duration', $tour->duration) }}"
+                                        placeholder="Enter duration (e.g., 3 days)" required>
+                                    @error('duration')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group mb-4">
                                     <label for="max_member">Max Members</label>
-                                    <input type="number" class="form-control" id="max_member" name="max_member"
-                                        placeholder="Enter max members" required value="{{ $tour->max_member }}">
+                                    <input type="number" class="form-control @error('max_member') is-invalid @enderror"
+                                        id="max_member" name="max_member"
+                                        value="{{ old('max_member', $tour->max_member) }}" placeholder="Enter max members"
+                                        required>
+                                    @error('max_member')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group mb-4">
                                     <label for="min_age">Minimum Age</label>
-                                    <input type="number" class="form-control" id="min_age" name="min_age"
-                                        placeholder="Enter minimum age" required value="{{ $tour->min_age }}">
+                                    <input type="number" class="form-control @error('min_age') is-invalid @enderror"
+                                        id="min_age" name="min_age" value="{{ old('min_age', $tour->min_age) }}"
+                                        placeholder="Enter minimum age" required>
+                                    @error('min_age')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
+
                         <div class="form-group mb-4">
                             <label for="description">Description</label>
-                            <textarea class="form-control bg-light" id="description" name="description" rows="3"
-                                placeholder="Enter tour description" required>{{ $tour->description }}</textarea>
+                            <textarea class="form-control bg-light @error('description') is-invalid @enderror" id="description" name="description"
+                                rows="3" required>{{ old('description', $tour->description) }}</textarea>
+                            @error('description')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group mb-4">
                             <label for="include">Includes</label>
-                            <textarea class="form-control" id="include" name="include" rows="2"
-                                placeholder="Enter included features (comma-separated)" required>{{ $tour->include }}</textarea>
+                            <textarea class="form-control @error('include') is-invalid @enderror" id="include" name="include" rows="2"
+                                required>{{ old('include', $tour->include) }}</textarea>
+                            @error('include')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
+
+                    <div class="card p-4">
+                        <h1>The Plans</h1>
+                        <div id="plan-container">
+                            @foreach ($tour->plans as $index => $plan)
+                                <div class="plan-can">
+                                    <div class="form-group mb-2">
+                                        <label for="plan_name_{{ $index }}">Plan Name</label>
+                                        <input type="text" name="plan_name[]" id="plan_name_{{ $index }}"
+                                            class="form-control @error('plan_name.' . $index) is-invalid @enderror"
+                                            value="{{ old('plan_name.' . $index, $plan->name) }}" required>
+                                        @error('plan_name.' . $index)
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label for="plan_description_{{ $index }}">Plan Description</label>
+                                        <textarea name="plan_description[]" id="plan_description_{{ $index }}"
+                                            class="form-control @error('plan_description.' . $index) is-invalid @enderror" rows="3" required>{{ old('plan_description.' . $index, $plan->description) }}</textarea>
+                                        @error('plan_description.' . $index)
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label for="city_{{ $index }}">City</label>
+                                        <input type="text" name="city[]" id="city_{{ $index }}"
+                                            class="form-control @error('city.' . $index) is-invalid @enderror"
+                                            value="{{ old('city.' . $index, $plan->city) }}" required>
+                                        @error('city.' . $index)
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <button type="button" id="add-plan" class="btn btn-primary mt-3 w-100">Add Another
+                            Plan</button>
+                    </div>
                 </div>
+
                 <div class="col-md-4 p-2">
                     <div class="p-4 card mb-4">
-                        <h1>Room price</h1>
-                        <div class="form-group">
-                            <label for="single_room">Single room</label>
-                            <input type="text" name="single_room" id="single_room" class="form-control" value="{{$tour->single_room}}" required>
+                        <h1>Room Price</h1>
+                        <div class="form-group mb-4">
+                            <label for="single_room">Single Room</label>
+                            <input type="number" name="single_room" id="single_room"
+                                class="form-control @error('single_room') is-invalid @enderror"
+                                value="{{ old('single_room', $tour->single_room) }}" required>
+                            @error('single_room')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
-                        <div class="form-group">
-                            <label for="twin_room">Twin room</label>
-                            <input type="text" name="twin_room" id="twin_room" class="form-control" value="{{$tour->twin_room}}" required>
+                        <div class="form-group mb-4">
+                            <label for="twin_room">Twin Room</label>
+                            <input type="number" name="twin_room" id="twin_room"
+                                class="form-control @error('twin_room') is-invalid @enderror"
+                                value="{{ old('twin_room', $tour->twin_room) }}" required>
+                            @error('twin_room')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
-                        <div class="form-group">
-                            <label for="child_room">Child room</label>
-                            <input type="text" name="child_room" id="child_room" class="form-control" value="{{$tour->child_room}}" required>
+                        <div class="form-group mb-4">
+                            <label for="child_room">Child Room</label>
+                            <input type="number" name="child_room" id="child_room"
+                                class="form-control @error('child_room') is-invalid @enderror"
+                                value="{{ old('child_room', $tour->child_room) }}" required>
+                            @error('child_room')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="p-4 card mb-4">
+                        <h1>Ticket Detail</h1>
+                        <hr>
+                        <div class="form-group my-4">
+                            <label for="price">Tour price:</label>
+                            <input type="number" id="price" name="price" class="form-control" value="{{$tour->price}}"  required
+                                placeholder="Enter total price per ticket">
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="discount">Tour discount:</label>
+                            <input type="number" id="discount" name="discount" class="form-control" value="{{$tour->discount}}"  required
+                                placeholder="Enter discount perentage (10%,5%)">
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="date">Tour Date:</label>
+                            <input type="date" id="date" name="date" class="form-control"  value="{{$tour->date}}" required>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="time">Tour Time:</label>
+                            <input type="time" id="time" name="time" class="form-control" value="{{$tour->time}}"  required>
+                        </div>
+                    </div>
+                    <div class="card p-4 mb-4">
+                        <div class="d-flex align-items-center gap-2">
+                            <input type="checkbox" name="one_day" id="one_day" class="m-0" value="1">
+                            <label for="one_day" class="m-0">One day</label>
                         </div>
                     </div>
                 </div>
             </div>
-
             <div class="d-flex justify-content-end">
-                <button type="submit" id="submit" class="btn btn-primary btn-lg mt-3">Update Detail</button>
+                <button type="submit" class="btn btn-primary btn-lg mt-3">Update Tour</button>
             </div>
         </form>
     </div>
 @endsection
+
 
 
 @section('js')
@@ -122,67 +235,41 @@
                 });
             }
 
-            initializeSummernote('#description');
-            initializeSummernote('#include');
+            initializeSummernote('textarea');
 
-            // Handle form submission
-            $('#tourForm').on('submit', function(e) {
-                e.preventDefault();
+            // Handle adding new plans
+            const addPlanButton = document.getElementById('add-plan');
+            const planContainer = document.getElementById('plan-container');
 
-                const formData = {
-                    country_id: $('#country_id').val(),
-                    name: $('#name').val(),
-                    tour_type: $('#tour_type').val(),
-                    duration: $('#duration').val(),
-                    max_member: $('#max_member').val(),
-                    min_age: $('#min_age').val(),
-                    description: $('#description').val(),
-                    include: $('#include').val(),
-                    single_room: $('#single_room').val(),
-                    twin_room: $('#twin_room').val(),
-                    child_room: $('#child_room').val(),
-                    
+            addPlanButton.addEventListener('click', () => {
+                // Get the first plan as a template
+                const firstPlan = document.querySelector('.plan-can');
 
-                };
+                // Clone the first plan
+                const newPlan = firstPlan.cloneNode(true);
 
-                // Send AJAX request
-                $.ajax({
-                    url: "{{ route('tours.update', $tour->id) }}",
-                    method: 'PUT', // Use POST with _method: PUT for Laravel compatibility
-                    data: formData,
-                    beforeSend: function() {
-                        $('#submit').prop('disabled', true);
-                    },
-                    success: function(response) {
-                        Swal.fire({
-                            title: 'Tour Updated',
-                            text: 'The tour details have been updated successfully!',
-                            icon: 'success',
-                            confirmButtonText: 'OK',
-                        }).then(function() {
-                            window.location.href =
-                                "{{ route('tours.show', ':id') }}".replace(':id',
-                                    response.tour_id);
-                        });
-                    },
-                    error: function(xhr) {
-                        $('#submit').prop('disabled', false);
-                        const errors = xhr.responseJSON.errors || {};
-                        Object.keys(errors).forEach(function(key) {
-                            const element = $(`[name="${key}"]`);
-                            element.addClass('is-invalid');
-                            element.after(
-                                `<div class="invalid-feedback">${errors[key][0]}</div>`
-                            );
-                        });
-                    },
+                // Clear all input, select, and textarea fields in the cloned plan
+                newPlan.querySelectorAll('input, select, textarea').forEach((field) => {
+                    field.value = '';
                 });
-            });
 
-            // Handle field changes to remove error styling
-            $('input, textarea, select').on('change', function() {
-                $(this).removeClass('is-invalid');
-                $(this).next('.invalid-feedback').remove();
+                const clonedDescription = newPlan.querySelector("textarea[name='plan_description[]']");
+                $(clonedDescription).next('.note-editor').remove(); // Remove any existing Summernote editor
+                clonedDescription.innerHTML = ''; // Clear any existing content in the cloned textarea
+
+                // Reinitialize Summernote for the cloned description field
+                $(clonedDescription).summernote({
+                    height: 200,
+                    toolbar: [
+                        ['font', ['bold', 'italic', 'underline', 'clear']],
+                        ['para', ['ul', 'ol']],
+                        ['insert', ['link']],
+                        ['view', ['help']],
+                    ],
+                });
+
+                // Append the cloned plan to the container
+                planContainer.appendChild(newPlan);
             });
         });
     </script>

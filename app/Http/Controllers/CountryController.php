@@ -12,7 +12,7 @@ class CountryController extends Controller
      */
     public function index()
     {
-        $countries = Country::with('cities')->paginate(10);
+        $countries = Country::paginate(10);
         return view("admin.country.show", compact("countries"));
         // return $countries;
     }
@@ -22,7 +22,7 @@ class CountryController extends Controller
      */
     public function create()
     {
-       return view('admin.country.add');
+        return view('admin.country.add');
     }
 
     /**
@@ -30,15 +30,26 @@ class CountryController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name'=> 'required|unique:countries,name',
-            'status'=>'required',
+        $validatedData = $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Ensures only valid image types and max size of 2MB
+            'name' => 'required|string|max:255|unique:countries,name', // Name should be unique in the `countries` table
+            'status' => 'required|boolean', // Status must be 0 or 1
         ]);
-        $country = Country::create([
-            'name'=> $request->name,
-            'status'=> $request->status,
+
+        // Handle the image upload
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('countries', 'public'); // Store in `storage/app/public/countries`
+        }
+
+        // Create the country record
+        Country::create([
+            'name' => $validatedData['name'],
+            'status' => $validatedData['status'],
+            'image' => $imagePath, // Save the path of the uploaded image
         ]);
-        return redirect()->route('country.index')->with('success','Country added successfully');
+
+        // Redirect with a success message
+        return redirect()->back()->with('success', 'Country added successfully!');
     }
 
     /**
@@ -46,7 +57,7 @@ class CountryController extends Controller
      */
     public function show(string $id)
     {
-        $country = Country::with('cities')->find($id);
+        $country = Country::find($id);
         return view('single', compact('country'));
     }
 
@@ -56,7 +67,7 @@ class CountryController extends Controller
     public function edit(string $id)
     {
         $country = Country::find($id);
-        return view('admin.country.update',compact('country'));
+        return view('admin.country.update', compact('country'));
     }
 
     /**
@@ -65,16 +76,16 @@ class CountryController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'name'=> 'required|string',
-            'status'=> 'required',
+            'name' => 'required|string',
+            'status' => 'required',
         ]);
         $post = Country::findOrFail($id);
         $post->update([
-        'name' => $request->name,
-        'status' => $request->status,
-    ]);
+            'name' => $request->name,
+            'status' => $request->status,
+        ]);
 
-    return redirect()->route('country.index')->with('success','country updated successfully');
+        return redirect()->route('country.index')->with('success', 'country updated successfully');
     }
 
     /**
@@ -84,6 +95,6 @@ class CountryController extends Controller
     {
         $country = Country::findOrFail($id);
         $country->delete();
-        return redirect()->route('country.index')->with('status','country deleted successfully');
+        return redirect()->route('country.index')->with('status', 'country deleted successfully');
     }
 }

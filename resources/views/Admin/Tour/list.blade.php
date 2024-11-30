@@ -8,6 +8,9 @@
         </div>
     </div>
     <div class="container card mt-4 p-4">
+        @if (session('success'))
+        <div class="alert alert-danger">{{ session('success') }}</div>
+        @endif
         <h1>list</h1>
         <div class="table-responsive">
             <table class="table">
@@ -16,8 +19,9 @@
                         <th>#</th>
                         <th>Image</th>
                         <th>Name</th>
-                        <th>Country</th>
+                        <th>Destination</th>
                         <th>Actions</th>
+                        <th>Update</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,7 +37,14 @@
                             <td>
                                 <div class="d-flex align-items-center gap-2">
                                     <a href="{{ route('tours.show', $tour->id) }}" class="btn btn-success btn-sm">View</a>
+                                    <a href="{{ route('tours.edit', $tour->id) }}" class="btn btn-warning btn-sm">Edit</a>
                                     <button class="btn btn-danger del-btn btn-sm" data-id="{{ $tour->id }}">Del</button>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex flex-column gap-2 ">
+                                    <a href="{{route('tour.imagesUpload',$tour->id)}}" class="btn btn-sm btn-primary">Update images</a>
+                                    <a href="{{route('tour.single.edit',$tour->id)}}" class="btn btn-primary btn-sm">Update Price/Date/time</a>
                                 </div>
                             </td>
                         </tr>

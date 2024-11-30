@@ -38,10 +38,9 @@
 
    @section('content')
        <div class="container">
-           <h1 style="color: #EE1C25" class="text-center mb-4">Country and City Status Overview</h1>
-           <div>
-               <a style="background-color: #EE1C25" class="fs-5 btn btn-primary p-2" href="{{ route('country.create') }}">Add
-                   Country</a>
+           <div class="p-4 card d-flex flex-row justify-content-between align-items-center">
+               <h1 style="color: #EE1C25">Destination Overview</h1>
+               <a style="background-color: #EE1C25" class="fs-5 btn btn-primary p-2" href="{{ route('country.create') }}">Add Destination</a>
            </div>
            @if (session('success'))
                <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
@@ -53,29 +52,19 @@
                <table class="table table-responsive table-bordered table-striped">
                    <thead>
                        <tr>
-                           <th>Country Name</th>
-                           <th>City Names</th>
-                           <th>Country Status</th>
+                           <th>Destination Image</th>
+                           <th>Destination Name</th>
+                           <th>Destination Status</th>
                            <th>Actions</th>
                        </tr>
                    </thead>
                    <tbody>
                        @foreach ($countries as $item)
                            <tr>
-                               <td>{{ $item->name }}</td>
                                <td>
-                                   @forelse ($item->cities as $city)
-                                       <div class="d-flex align-items-center gap-2">
-                                           <span class="btn btn-sm btn-{{ $city->status ? 'success' : 'danger' }}"></span>
-                                           {{ $city->name }}
-                                       </div>
-                                    @empty 
-                                        <div class="d-flex align-items-center gap-2">
-                                            <a href="{{route('city.create')}}" class="btn btn-success btn-sm">Add new city</a>
-                                            <p class="m-0">No cities found</p>
-                                        </div>
-                                   @endforelse
+                                <img src="{{asset('storage/'. $item->image )}}" alt="" width="50" class="rounded">
                                </td>
+                               <td>{{ $item->name }}</td>
                                <td class="status-active">
                                    <span class="badge  btn-{{ $item->status ? 'success' : 'danger' }}">
                                        {{ $item->status ? 'Active' : 'Inactive' }}

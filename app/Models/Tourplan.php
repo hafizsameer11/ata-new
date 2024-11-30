@@ -10,9 +10,6 @@ class Tourplan extends Model
         'name',
         'description',
         'tour_id',
-        'city_id'
+        'city'
     ];
-    public function cities(){
-        return $this->belongsTo(City::class,'city_id');
-    }
 }

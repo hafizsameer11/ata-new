@@ -25,12 +25,7 @@
                 </div>
                 <div class="form-group mb-4">
                     <label for="city">City</label>
-                    <select name="city_id" id="city_id" class="form-control">
-                        <option value="">Select City</option>
-                        @foreach ($cities as $city)
-                            <option value="{{ $city->id }}">{{ $city->name }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" class="form-control" id="city" name="city">
                 </div>
             </div>
             <button class="btn btn-primary" id="submit">Submit</button>
@@ -41,7 +36,7 @@
             <div class="my-2 card p-4">
                 <div class="d-flex align-items-center justify-content-between">
                     <h4><span class="text-danger">Name:</span> <span>{{ $plan->name }}</span></h4>
-                    <h4><span class="text-danger">City:</span> <span>{{ $plan->cities->name }}</span></h4>
+                    <h4><span class="text-danger">City:</span> <span>{{ $plan->city }}</span></h4>
                 </div>
                 <div class="">
                     <h4 class="text-danger">Description</h4>
@@ -139,7 +134,7 @@
                     name: $("#name").val(),
                     description: $("#description").val(),
                     tour_id: $('#tour_id').val(),
-                    city_id: $('#city_id').val(),
+                    city: $('#city').val(),
                 };
 
 

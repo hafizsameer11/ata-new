@@ -22,12 +22,7 @@
                 </div>
                 <div class="form-group mb-4">
                     <label for="city">City</label>
-                    <select name="city_id" id="city_id" class="form-control">
-                        <option value="">Select City</option>
-                        @foreach ($cities as $city)
-                            <option value="{{ $city->id }}"  {{ ($city->id = $tourplan->city_id) ? 'selected' : "" }} >{{ $city->name }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" class="form-control" name="city" id="city" value="{{$tourplan->city}}">
                 </div>
             </div>
             <button class="btn btn-primary" id="submit">Submit</button>
@@ -64,7 +59,7 @@
                     name: $("#name").val(),
                     description: $("#description").val(),
                     tour_id: $('#tour_id').val(),
-                    city_id: $('#city_id').val(),
+                    city: $('#city').val(),
                 };
 
 
@@ -81,10 +76,9 @@
                             text: 'The tour plan Updated successfully',
                             icon: 'success',
                             confirmButtonText: 'OK'
+                        }).then(function() {
+                            location.reload();
                         })
-                        // .then(function() {
-                        //     location.reload();
-                        // })
                         $('#plansForm')[0].reset();
                         $('#submit').prop('disabled', false)
                     },

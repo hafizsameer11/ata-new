@@ -345,20 +345,14 @@
                         <li>
                             <a href="{{ route('country.index') }}" class="waves-effect">
                                 <i class="fa-solid fa-earth-americas"></i>
-                                <span>Countries</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('city.index') }}" class="waves-effect">
-                                <i class="fa-solid fa-flag"></i>
-                                <span>Cites</span>
+                                <span>Destination</span>
                             </a>
                         </li>
                         
                         <li>
                             <a href="javascript: void(0);" class="has-arrow waves-effect">
                                 <i class="fa-regular fa-clipboard"></i>
-                                <span>Tour</span>
+                                <span>Tour Package</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="{{ route('tours.index') }}"> List </a></li>
@@ -368,13 +362,23 @@
                         <li>
                             <a href="javascript: void(0);" class="has-arrow waves-effect">
                                 <i class="fa-regular fa-clipboard"></i>
+                                <span>One day tour</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{{ route('tours.One_day_index') }}"> List </a></li>
+                                <li><a href="{{ route('tours.create') }}"> Create </a></li>
+                            </ul>
+                        </li>
+                        {{-- <li>
+                            <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                <i class="fa-regular fa-clipboard"></i>
                                 <span>Plan Tour</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="{{ route('plan_tours.index') }}"> List </a></li>
                                 <li><a href="{{ route('plan_tours.create') }}"> Create </a></li>
                             </ul>
-                        </li>
+                        </li> --}}
                         <li>
                             <a href="{{ route('message.index') }}" class="waves-effect">
                                 <i class="fa-solid fa-comment"></i>

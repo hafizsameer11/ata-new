@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Tour;
 use App\Models\Tourplan;
-use App\Models\City;
 use Illuminate\Http\Request;
 
 class TourplanController extends Controller
@@ -33,7 +32,7 @@ class TourplanController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
-            'city_id' => 'required|exists:cities,id',
+            'city' => 'required|string',
             'tour_id' => 'required|exists:tours,id'
         ]);
         Tourplan::create($validated);
@@ -55,15 +54,9 @@ class TourplanController extends Controller
      */
     public function edit(string $id)
     {
-        $tourplan = Tourplan::with('cities')->find($id);
+        $tourplan = Tourplan::find($id);
         $tour = Tour::find($tourplan->tour_id);
-        $cities = City::where(
-            [
-                ['status', 1],
-                ['countryID', $tour->country_id]
-            ]
-        )->get();
-        return view('Admin.Tour.create.planEdit', compact('tourplan', 'cities'));
+        return view('Admin.Tour.create.planEdit', compact('tourplan'));
     }
 
     /**
@@ -74,7 +67,7 @@ class TourplanController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
-            'city_id' => 'required|exists:cities,id',
+            'city' => 'required|string',
             'tour_id' => 'required|exists:tours,id'
         ]);
         $tourplan->update($validated);

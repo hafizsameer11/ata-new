@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\CountryController;
-use App\Http\Controllers\CityController;
 use App\Http\Controllers\DropdownController;
 use App\Http\Controllers\PlantourController;
 use App\Http\Controllers\TourController;
@@ -36,29 +35,30 @@ Route::prefix('/admin')->group(function () {
     Route::get('/dashboard', function () {
         return view('Admin.dashboard');
     })->name('dashboard');
-Route::get('/dashboard', function () {
-    return view('Admin.dashboard');
-})->name('dashboard');
-Route::get('/contact', function () {
-    return view('Website.contact.contact');
-})->name('contact');
-Route::get('/message', function () {
-    return view('admin.message.index');
-})->name('message');
+    Route::get('/dashboard', function () {
+        return view('Admin.dashboard');
+    })->name('dashboard');
+    Route::get('/contact', function () {
+        return view('Website.contact.contact');
+    })->name('contact');
+    Route::get('/message', function () {
+        return view('admin.message.index');
+    })->name('message');
 
     Route::resource('country', CountryController::class);
-    Route::resource('city', CityController::class);
     Route::resource('tours', TourController::class);
-    Route::get('/tours/image_uploads/{id}', [TourController::class,'imagesUpload'])->name('tour.imagesUpload'); 
-    Route::get('/tours/plans/{id}', [TourController::class,'plans'])->name('tour.plans'); 
+    Route::get('/tours/image_uploads/{id}', [TourController::class, 'imagesUpload'])->name('tour.imagesUpload');
+    Route::get('/tours/plans/{id}', [TourController::class, 'plans'])->name('tour.plans');
+    Route::put('/tours/singleUpdate/{id}', [TourController::class, 'updatesingle'])->name('tour.single.update');
+    Route::get('/tours/edit/sinlge/{id}', [TourController::class, 'editSingle'])->name('tour.single.edit');
     Route::post('/tours/images/upload', [DropdownController::class, 'uploadImage'])->name('tours.images.upload');
     Route::post('/tours/images/EditImages', [DropdownController::class, 'EditImages'])->name('tours.images.EditImages');
     Route::delete('/tours/images/remove', [DropdownController::class, 'removeImage'])->name('tours.images.remove');
     Route::delete('/tours/images/removeUploaded', [DropdownController::class, 'removeUploaded'])->name('tours.images.removeUploaded');
-    Route::resource('/tourplans',TourplanController::class);
-    Route::resource('country',CountryController::class);
-    Route::resource('city',CityController::class);
-    Route::resource('message',MessageController::class);
+    Route::resource('/tourplans', TourplanController::class);
+    Route::resource('message', MessageController::class);
+    Route::resource('/plan_tours',PlantourController::class);
+    Route::get('one-day/tours', [TourController::class,'One_day_index'])->name('tours.One_day_index');
 });
 
 

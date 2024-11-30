@@ -62,29 +62,70 @@
                 </a>
             </div>
             <hr>
-            <div class="d-flex justify-content-between align-items-center card flex-row p-2  mt-4">
-                <h4><span class="text-danger">Name:</span> {{ $tour->name }}</h4>
-                <h4><span class="text-danger">Tour type:</span> {{ $tour->tour_type }}</h4>
-            </div>
-            <div class="d-flex align-items-center gap-2 w-100 mt-4">
-                <h6 class="w-100"><span class="text-danger">Country: </span> {{ $tour->country->name }} </h6>
-                <h6 class="w-100"><span class="text-danger">Duration: </span> {{ $tour->duration }} </h6>
-                <h6 class="w-100"><span class="text-danger">Max Member: </span> {{ $tour->max_member }} </h6>
-                <h6 class="w-100"><span class="text-danger">Min age: </span> {{ $tour->min_age }} </h6>
-            </div>
-            <div class="d-flex align-items-center gap-2 w-100 mt-4">
-                <h6 class="w-100"><span class="text-danger">Sinlge room: </span> ${{ $tour->single_room }} </h6>
-                <h6 class="w-100"><span class="text-danger">Twin room: </span> ${{ $tour->twin_room }} </h6>
-                <h6 class="w-100"><span class="text-danger">Child room: </span> ${{ $tour->child_room }} </h6>
-            </div>
+            <table class="table table-bordered mt-4">
+                <thead class="bg-light">
+                    <tr>
+                        <th colspan="4" class="text-center text-danger h4">Tour Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Name:</strong></td>
+                        <td>{{ $tour->name }}</td>
+                        <td><strong>Tour Type:</strong></td>
+                        <td>{{ $tour->tour_type }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Destination:</strong></td>
+                        <td>{{ $tour->country->name }}</td>
+                        <td><strong>Duration:</strong></td>
+                        <td>{{ $tour->duration }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Max Member:</strong></td>
+                        <td>{{ $tour->max_member }}</td>
+                        <td><strong>Min Age:</strong></td>
+                        <td>{{ $tour->min_age }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Single Room:</strong></td>
+                        <td>${{ $tour->single_room }}</td>
+                        <td><strong>Twin Room:</strong></td>
+                        <td>${{ $tour->twin_room }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Child Room:</strong></td>
+                        <td>${{ $tour->child_room }}</td>
+                        <td><strong>Price:</strong></td>
+                        <td>${{ $tour->price }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Discount:</strong></td>
+                        <td>{{ $tour->discount }} %</td>
+                        <td><strong>Date:</strong></td>
+                        <td>{{ $tour->date }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Time:</strong></td>
+                        <td>{{ $tour->time }}</td>
+                        <td colspan="2"></td> <!-- Empty cells to align the layout -->
+                    </tr>
+                </tbody>
+            </table>
+
+
+            <!-- Description Section -->
             <div class="mt-4">
                 <h3 class="text-danger">Description</h3>
                 {!! $tour->description !!}
             </div>
+
+            <!-- Include/Exclude Section -->
             <div class="mt-4">
                 <h3 class="text-danger">Include/Exclude</h3>
                 {!! $tour->include !!}
             </div>
+
         </div>
         <div class="plans mt-4 card p-4">
             <div class="mb-4 d-flex justify-content-between align-items-center">
@@ -110,7 +151,7 @@
                             <tr>
                                 <td>{{ $plan->name }}</td>
                                 <td>{!! Str::words($plan->description, 10, '...') !!}</td>
-                                <td>{{ $plan->cities->name }}</td>
+                                <td>{{ $plan->city }}</td>
                                 <td>
                                     <a href="{{ route('tourplans.edit', $plan->id) }}"
                                         class="btn btn-warning btn-sm">Edit</a>

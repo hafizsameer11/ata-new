@@ -25,7 +25,7 @@
 @section('content')
     <div class="container">
         <div class="form-container">
-            <h2 style="color: #EE1C25" class="form-header">Update Country</h2>
+            <h2 style="color: #EE1C25" class="form-header">Update Destination</h2>
 
             <!-- Success Message -->
             @if (session('success'))
@@ -36,12 +36,16 @@
            @endif
 
             <!-- Update Form -->
-            <form action="{{ route('country.update', $country->id) }}" method="POST">
+            <form action="{{ route('country.update', $country->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT') <!-- Method spoofing for PUT -->
 
                 <div class="mb-3">
-                    <label for="name" class="form-label">Country Name</label>
+                    <label for="image" class="form-label">Destination Image</label>
+                    <input type="file" class="form-control" name="image" id="image">
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Destination Name</label>
                     <input 
                         type="text" 
                         class="form-control @error('name') is-invalid @enderror" 
@@ -68,7 +72,7 @@
                     @enderror
                 </div>
 
-                <button type="submit" style="background-color: #EE1C25" class="btn btn-primary">Update Country</button>
+                <button type="submit" style="background-color: #EE1C25" class="btn btn-primary">Update Destination</button>
             </form>
         </div>
     </div>

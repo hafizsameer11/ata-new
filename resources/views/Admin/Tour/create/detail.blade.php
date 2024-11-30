@@ -16,7 +16,7 @@
                             <div id="tourImagesDropzone" class="dropzone"></div>
                         </div>
                     </div>
-        
+
                     <!-- Form groups in a row -->
                     <div class="card p-4">
                         <h1>The Detail</h1>
@@ -24,9 +24,9 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group mb-4">
-                                    <label for="country_id">Country</label>
+                                    <label for="country_id">Destination</label>
                                     <select class="form-control" id="country_id" name="country_id">
-                                        <option value="">Select Country</option>
+                                        <option value="">Select Destination</option>
                                         @foreach ($countries as $country)
                                             <option value="{{ $country->id }}">{{ $country->name }}</option>
                                         @endforeach
@@ -47,9 +47,9 @@
                                         placeholder="Enter tour type (e.g., Adventure)" required>
                                 </div>
                             </div>
-        
+
                         </div>
-        
+
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group mb-4">
@@ -84,7 +84,7 @@
                                 placeholder="Enter included features (comma-separated)" required></textarea>
                         </div>
                     </div>
-        
+
                     <div class="card p-4">
                         <div class="d-flex align-items-center justify-content-between">
                             <h1>The Plans</h1>
@@ -93,43 +93,70 @@
                             <div style="height: 5px; background-color:black;" class="my-4 rounded"></div>
                             <div class="form-group mb-2">
                                 <label for="name">Name</label>
-                                <input type="text" name="plan_name[]" id="plan_name" class="form-control" required placeholder="Enter name ( Day 1 , week 1)">
+                                <input type="text" name="plan_name[]" id="plan_name" class="form-control" required
+                                    placeholder="Enter name ( Day 1 , week 1)">
                             </div>
                             <div class="form-group mb-2">
                                 <label for="description">Description</label>
-                                <textarea name="plan_description[]" id="plan_description" class="form-control" cols="30" rows="10" placeholder="Enter plan description"></textarea>
+                                <textarea name="plan_description[]" id="plan_description" class="form-control" cols="30" rows="10"
+                                    placeholder="Enter plan description"></textarea>
                             </div>
                             <div class="form-group mb-4">
                                 <label for="city">City</label>
-                                <select name="city_id[]" id="city_id" class="form-control">
-                                    <option value="">Select City</option>
-                                    @foreach ($cities as $city)
-                                        <option value="{{ $city->id }}">{{ $city->name }}</option>
-                                    @endforeach
-                                </select>
+                                <input type="text" name="city[]" id="city" class="form-control">
                             </div>
                         </div>
                         <div id="plan-container">
-        
+
                         </div>
                         <!-- Add Plan Button -->
-                        <button type="button" id="add-plan" class="btn btn-primary mt-3 w-100">Add Another Plan</button>
+                        <button type="button" id="add-plan" class="btn btn-primary mt-3 w-100">Add Another
+                            Plan</button>
                     </div>
                 </div>
                 <div class="col-md-4 p-2">
                     <div class="p-4 card mb-4">
                         <h1>Room price</h1>
-                        <div class="form-group">
+                        <hr>
+                        <div class="form-group my-4">
                             <label for="single_room">Single room</label>
-                            <input type="text" name="single_room" id="single_room" class="form-control" required>
+                            <input type="number" name="single_room" id="single_room" class="form-control" required>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-4">
                             <label for="twin_room">Twin room</label>
-                            <input type="text" name="twin_room" id="twin_room" class="form-control" required>
+                            <input type="number" name="twin_room" id="twin_room" class="form-control" required>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-4">
                             <label for="child_room">Child room</label>
-                            <input type="text" name="child_room" id="child_room" class="form-control" required>
+                            <input type="number" name="child_room" id="child_room" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="p-4 card mb-4">
+                        <h1>Ticket Detail</h1>
+                        <hr>
+                        <div class="form-group my-4">
+                            <label for="price">Tour price:</label>
+                            <input type="number" id="price" name="price" class="form-control" required
+                                placeholder="Enter total price per ticket">
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="discount">Tour discount:</label>
+                            <input type="number" id="discount" name="discount" class="form-control" required
+                                placeholder="Enter discount perentage (10%,5%)">
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="date">Tour Date:</label>
+                            <input type="date" id="date" name="date" class="form-control" required>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="time">Tour Time:</label>
+                            <input type="time" id="time" name="time" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="card p-4 mb-4">
+                        <div class="d-flex align-items-center gap-2">
+                            <input type="checkbox" name="one_day" id="one_day">
+                            <label for="one_day">One day</label>
                         </div>
                     </div>
                 </div>
@@ -248,18 +275,13 @@
                 },
             });
 
-            // Handle form submission
             $('#tourForm').on('submit', function(e) {
                 e.preventDefault();
 
                 const formData = new FormData(this);
-
-                // Append uploaded images
                 uploadedImages.forEach((imageId) => {
                     formData.append('images[]', imageId);
                 });
-
-                // Send AJAX request
                 $.ajax({
                     url: "{{ route('tours.store') }}",
                     method: 'POST',
@@ -277,7 +299,8 @@
                             confirmButtonText: 'OK',
                         }).then(function() {
                             window.location.href =
-                                "{{ route('tours.show', ':id') }}".replace(':id',response.tour_id);
+                                "{{ route('tours.show', ':id') }}".replace(':id',
+                                    response.tour_id);
                         });
                     },
                     error: function(xhr) {

@@ -19,6 +19,11 @@ class Tour extends Model
         'single_room',
         'twin_room',
         'child_room',
+        'price',
+        'discount',
+        'date',
+        'time',
+        'one_day'
     ];
     public function images(){
         return $this->hasMany(Tourimage::class);
@@ -28,5 +33,5 @@ class Tour extends Model
     }
     public function country(){
         return $this->belongsTo(Country::class);
-    } 
+    }
 }
