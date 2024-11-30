@@ -7,6 +7,7 @@ use App\Http\Controllers\TourController;
 use App\Http\Controllers\TourplanController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -27,6 +28,12 @@ Route::get('/product_view', function () {
 Route::get('/checkout', function () {
     return view('Website.checkout.index');
 })->name('checkout');
+Route::get('/contact', function () {
+    return view('Website.contact.contact');
+})->name('contact');
+Route::get('/profile', function () {
+    return view('Website.profile.profile');
+})->name('profile');
 
 
 
@@ -35,17 +42,16 @@ Route::prefix('/admin')->group(function () {
     Route::get('/dashboard', function () {
         return view('Admin.dashboard');
     })->name('dashboard');
-    Route::get('/dashboard', function () {
-        return view('Admin.dashboard');
-    })->name('dashboard');
-    Route::get('/contact', function () {
-        return view('Website.contact.contact');
-    })->name('contact');
-    Route::get('/message', function () {
-        return view('admin.message.index');
-    })->name('message');
+Route::get('/dashboard', function () {
+    return view('Admin.dashboard');
+})->name('dashboard');
+Route::get('/message', function () {
+    return view('admin.message.index');
+})->name('message');
 
     Route::resource('country', CountryController::class);
+    Route::resource('city', CityController::class);
+    Route::resource('/plan_tours',PlantourController::class);
     Route::resource('tours', TourController::class);
     Route::get('/tours/image_uploads/{id}', [TourController::class, 'imagesUpload'])->name('tour.imagesUpload');
     Route::get('/tours/plans/{id}', [TourController::class, 'plans'])->name('tour.plans');
@@ -62,4 +68,7 @@ Route::prefix('/admin')->group(function () {
 });
 
 
-Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+Route::post('/contactstore', [ContactController::class, 'store'])->name('contact.store');
+Route::post('/signup', [LoginController::class, 'signup'])->name('user.signup');
+Route::post('/login', [LoginController::class, 'login'])->name('user.login');
+Route::post('/logout', [LoginController::class, 'logout'])->name('user.logout');
