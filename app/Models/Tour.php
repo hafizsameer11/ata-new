@@ -34,4 +34,7 @@ class Tour extends Model
     public function country(){
         return $this->belongsTo(Country::class);
     }
+    public function planTour(){
+        return $this->hasMany(PlanTour::class);
+    }
 }

@@ -8,13 +8,14 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function signup(Request $request){
+    public function signup(Request $request)
+    {
         $save = $request->validate([
-            'name'=>'required|string',
-            'email'=> 'required|email',
-            'password'=> 'required|confirmed|min:8',
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'password' => 'required|confirmed|min:8',
         ]);
-        $user=  User::create($save);
+        $user = User::create($save);
 
         // login
         Auth::login($user);
@@ -23,20 +24,22 @@ class LoginController extends Controller
     }
 
 
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         $data = $request->validate([
-            'email'=> 'required|email',
-            'password'=>'required'
+            'email' => 'required|email',
+            'password' => 'required'
         ]);
 
-        if(Auth::attempt($data)){
-            return redirect()->route('home')->with('success','hello world');
+        if (Auth::attempt($data)) {
+            return redirect()->route('home')->with('success', 'hello world');
+        }
     }
-}
 
-public function logout(Request $request){
-    Auth::logout();
-      return redirect()->route('home')->with('success','lol');
-}
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        return redirect()->route('home')->with('success', 'lol');
+    }
 }
 

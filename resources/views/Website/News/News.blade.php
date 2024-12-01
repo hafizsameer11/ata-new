@@ -14,90 +14,30 @@
 
     {{-- section 3 --}}
     <div class="container my-5 row mx-auto">
-        <div class="col-6 col-lg-4 p-2">
-            <div class="card p-2 d-flex flex-column gap-2 h-100 justify-content-between">
-                <div>
-                    <img src="{{ asset('website/images/about-pic-1.jpg') }}" alt="news img" class="rounded w-100"
-                        style="height: 200px;object-fit: cover;">
-                    <h6 class="text-center heading mt-3">Separated they live in Bookmarksgrove</h6>
-                </div>
-                <div class="card-footer-read rounded">
-                    <a href="">
-                        Read more
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-6 col-lg-4 p-2">
-            <div class="card p-2 d-flex flex-column gap-2 h-100 justify-content-between">
-                <div>
-                    <img src="{{ asset('website/images/about-pic-1.jpg') }}" alt="news img" class="rounded w-100"
-                        style="height: 200px;object-fit: cover;">
-                    <h6 class="text-center heading mt-3">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rem
-                        dolorum alias vero quos dolorem laudantium itaque fugit ratione dolores culpa.</h6>
-                </div>
-                <div class="card-footer-read rounded">
-                    <a href="">
-                        Read more
-                    </a>
+        @forelse ($blogs as $blog)
+            <div class="col-6 col-lg-4 p-2">
+                <div class="card p-2 d-flex flex-column gap-2 h-100 justify-content-between">
+                    <div>
+                        <img src="{{ asset('storage/'. $blog->image) }}" alt="news img" class="rounded w-100"
+                            style="height: 200px;object-fit: cover;">
+                        <h6 class="text-center heading mt-3">
+                            {{ $blog->title }}
+                        </h6>
+                    </div>
+                    <div class="card-footer-read rounded">
+                        <a href="{{route('news.shows',base64_encode($blog->id))}}">
+                            Read more
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-6 col-lg-4 p-2">
-            <div class="card p-2 d-flex flex-column gap-2 h-100 justify-content-between">
-                <div>
-                    <img src="{{ asset('website/images/about-pic-1.jpg') }}" alt="news img" class="rounded w-100"
-                        style="height: 200px;object-fit: cover;">
-                    <h6 class="text-center heading mt-3">Separated they live in Bookmarksgrove</h6>
-                </div>
-                <div class="card-footer-read rounded">
-                    <a href="">
-                        Read more
-                    </a>
-                </div>
+        @empty
+            <div class="text-center">
+                <h1>No News</h1>
             </div>
-        </div>
-        <div class="col-6 col-lg-4 p-2">
-            <div class="card p-2 d-flex flex-column gap-2 h-100 justify-content-between">
-                <div>
-                    <img src="{{ asset('website/images/about-pic-1.jpg') }}" alt="news img" class="rounded w-100"
-                        style="height: 200px;object-fit: cover;">
-                    <h6 class="text-center heading mt-3">Separated they live in Bookmarksgrove</h6>
-                </div>
-                <div class="card-footer-read rounded">
-                    <a href="">
-                        Read more
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-6 col-lg-4 p-2">
-            <div class="card p-2 d-flex flex-column gap-2 h-100 justify-content-between">
-                <div>
-                    <img src="{{ asset('website/images/about-pic-1.jpg') }}" alt="news img" class="rounded w-100"
-                        style="height: 200px;object-fit: cover;">
-                    <h6 class="text-center heading mt-3">Separated they live in Bookmarksgrove</h6>
-                </div>
-                <div class="card-footer-read rounded">
-                    <a href="">
-                        Read more
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-6 col-lg-4 p-2">
-            <div class="card p-2 d-flex flex-column gap-2 h-100 justify-content-between">
-                <div>
-                    <img src="{{ asset('website/images/about-pic-1.jpg') }}" alt="news img" class="rounded w-100"
-                        style="height: 200px;object-fit: cover;">
-                    <h6 class="text-center heading mt-3">Separated they live in Bookmarksgrove</h6>
-                </div>
-                <div class="card-footer-read rounded">
-                    <a href="">
-                        Read more
-                    </a>
-                </div>
-            </div>
-        </div>
+        @endforelse
+    </div>
+    <div class="my-4">
+        {{ $blogs->links('pagination::bootstrap-5') }}
     </div>
 @endsection

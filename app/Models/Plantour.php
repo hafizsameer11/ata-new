@@ -8,8 +8,6 @@ class Plantour extends Model
 {
     protected $fillable = [
         'tour_id',
-        'price',
-        'discount',
         'date',
         'time'
     ];

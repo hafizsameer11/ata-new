@@ -12,7 +12,7 @@ class MessageController extends Controller
      */
     public function index()
     {
-        $contacts = Contact::paginate('10');
+        $contacts = Contact::orderBy('id','DESC')->paginate('10');
         return view("admin.message.index", compact("contacts"));
     }
 

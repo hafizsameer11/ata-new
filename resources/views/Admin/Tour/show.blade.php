@@ -102,14 +102,18 @@
                     <tr>
                         <td><strong>Discount:</strong></td>
                         <td>{{ $tour->discount }} %</td>
-                        <td><strong>Date:</strong></td>
-                        <td>{{ $tour->date }}</td>
                     </tr>
                     <tr>
-                        <td><strong>Time:</strong></td>
-                        <td>{{ $tour->time }}</td>
-                        <td colspan="2"></td> <!-- Empty cells to align the layout -->
+                        <td colspan="4" class="text-center"><h4><strong>Date and time</strong></h4></td>
                     </tr>
+                    @foreach ($tour->planTour as $planDate)
+                    <tr>
+                        <td><strong>Date:</strong></td>
+                        <td>{{ $planDate->date }}</td>
+                        <td><strong>Time:</strong></td>
+                        <td>{{ $planDate->time }}</td>
+                    </tr>
+                    @endforeach
                 </tbody>
             </table>
 

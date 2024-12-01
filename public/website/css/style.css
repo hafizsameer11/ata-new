@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Itim&family=Lora:ital,wght@0,400..700;1,400..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Satisfy&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Itim&family=Lora:ital,wght@0,400..700;1,400..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Satisfy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Itim&family=Lora:ital,wght@0,400..700;1,400..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 .italic-font {
     font-family: "Satisfy", serif;
@@ -12,7 +13,9 @@
 }
 
 body {
-    font-family: 'Satoshi', sans-serif;
+    font-family: "Poppins", serif;
+    /* font-weight: 100; */
+    /* font-style: normal; */
 }
 
 :root {
@@ -22,13 +25,15 @@ body {
 .theme-text {
     color: #EE1C25;
 }
+
 a:focus {
     color: #EE1C25 !important;
 }
 
 .heading {
-    font-weight: 900;
+    font-weight: 700;
 }
+
 ::-webkit-scrollbar {
     width: 12px;
     height: 12px;
@@ -47,10 +52,12 @@ a:focus {
     background-color: #f5f5f5;
     border-radius: 10px;
 }
+
 html {
     scrollbar-width: thin;
     scrollbar-color: #EE1C25 #f5f5f5;
 }
+
 body {
     scrollbar-width: thin;
     scrollbar-color: #EE1C25 #f5f5f5;
@@ -172,7 +179,6 @@ button.dropdown-toggle::after {
     justify-content: center;
     padding: 100px 0;
     z-index: 2;
-    transform: translateX(-100px);
     opacity: 0;
 }
 
@@ -213,7 +219,7 @@ button.dropdown-toggle::after {
     top: 50%;
     z-index: 1;
     transform: translateY(-50%);
-    right: -100px;
+    right: 0;
 }
 
 .filter-bar {
@@ -222,7 +228,7 @@ button.dropdown-toggle::after {
     width: 100%;
 }
 
-.filter-bar > div {
+.filter-bar>div {
     flex-grow: 1;
 }
 
@@ -277,7 +283,7 @@ button.dropdown-toggle::after {
 .btn-minus,
 .btn-plus {
     /* background-color: transparent; */
-    width:20px;
+    width: 20px;
     height: 20px;
     display: flex;
     justify-content: center;
@@ -798,9 +804,10 @@ footer .footer-box1 {
         flex-direction: column;
     }
 
-    .member-can > img {
+    .member-can>img {
         flex-grow: 1;
     }
+
     h4.heading {
         font-size: 12px;
     }

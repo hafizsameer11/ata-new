@@ -90,4 +90,9 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+    $(document).ready(function () {
+        $('.adlistener').hover(function () {
+            $('.dropdown-menu').toggleClass('show');
+        })
+    })
 });

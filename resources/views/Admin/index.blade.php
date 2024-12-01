@@ -362,30 +362,31 @@
                         <li>
                             <a href="javascript: void(0);" class="has-arrow waves-effect">
                                 <i class="fa-regular fa-clipboard"></i>
-                                <span>One day tour</span>
+                                <span>Free $ Easy</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="{{ route('tours.One_day_index') }}"> List </a></li>
-                                <li><a href="{{ route('tours.create') }}"> Create </a></li>
+                                <li><a href="{{ route('tours.create', ['type' => '1']) }}">Create</a></li>
+
                             </ul>
                         </li>
-                        {{-- <li>
+                        <li>
                             <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                <i class="fa-regular fa-clipboard"></i>
-                                <span>Plan Tour</span>
+                                <i class="mdi mdi-email"></i>
+                                <span>News</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="{{ route('plan_tours.index') }}"> List </a></li>
-                                <li><a href="{{ route('plan_tours.create') }}"> Create </a></li>
+                                <li><a href="{{ route('news.index') }}">List</a></li>
+                                <li><a href="{{ route('news.create') }}">Create</a></li>
                             </ul>
-                        </li> --}}
+                        </li>
                         <li>
                             <a href="{{ route('message.index') }}" class="waves-effect">
                                 <i class="fa-solid fa-comment"></i>
                                 <span>Messages</span>
                             </a>
                         </li>
-                        <li>
+                        {{-- <li>
                             <a href="javascript: void(0);" class="has-arrow waves-effect">
                                 <i class="mdi mdi-email"></i>
                                 <span>Email</span>
@@ -395,7 +396,7 @@
                                 <li><a href="{{ asset('email-read.html') }}">Read Email</a></li>
                                 <li><a href="{{ asset('email-compose.html') }}">Email Compose</a></li>
                             </ul>
-                        </li>
+                        </li> --}}
 
                     </ul>
                 </div>

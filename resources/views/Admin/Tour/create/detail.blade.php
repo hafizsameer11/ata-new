@@ -144,21 +144,39 @@
                             <input type="number" id="discount" name="discount" class="form-control" required
                                 placeholder="Enter discount perentage (10%,5%)">
                         </div>
-                        <div class="form-group mb-4">
-                            <label for="date">Tour Date:</label>
-                            <input type="date" id="date" name="date" class="form-control" required>
-                        </div>
-                        <div class="form-group mb-4">
-                            <label for="time">Tour Time:</label>
-                            <input type="time" id="time" name="time" class="form-control" required>
+                    </div>
+                    <div class="card p-4 mb-4">
+                        <h1 class="">Tour Type</h1>
+                        <hr>
+                        <div class="">
+                            <label for="one_day">Tour Type</label>
+                            <select name="one_day" id="one_day" class="form-control">
+                                <option value="0">Package Tour</option>
+                                <option value="1">Free&Easy tour</option>
+                            </select>
                         </div>
                     </div>
                     <div class="card p-4 mb-4">
-                        <div class="d-flex align-items-center gap-2">
-                            <input type="checkbox" name="one_day" id="one_day">
-                            <label for="one_day">One day</label>
+                        <h1 class="">Tour Dates</h1>
+                        <div class="date-can mt-4">
+                            <div class="">
+                                <label for="date">Date</label>
+                                <input type="date" name="date[]" class="date form-control">
+                            </div>
+                            <div class="">
+                                <label for="time">Time</label>
+                                <input type="time" name="time[]" class="time form-control">
+                            </div>
                         </div>
+                        <div id="date-container">
+                            <!-- Additional dates will be appended here -->
+                        </div>
+                        {{-- if $name is exist and have value 1 then shown buttn --}}
+                        @if (!$name && $name != 1)
+                            <button id="add-date" type="button" class="btn btn-primary mt-3">Add Date</button>
+                        @endif
                     </div>
+
                 </div>
             </div>
 
@@ -226,6 +244,31 @@
                 planContainer.appendChild(newPlan);
             });
 
+
+
+
+            // Get the "Add Date" button (you need to add this button in your HTML)
+            const addDateButton = document.getElementById('add-date');
+
+            // Get the container where new date sections will be appended
+            const dateContainer = document.getElementById('date-container');
+
+            // Add click event listener to the "Add Date" button
+            addDateButton.addEventListener('click', () => {
+                // Get the first date-can element as a template
+                const firstDate = document.querySelector('.date-can');
+
+                // Clone the first date-can element
+                const newDate = firstDate.cloneNode(true);
+
+                // Clear all input fields in the cloned date-can element
+                newDate.querySelectorAll('input').forEach((field) => {
+                    field.value = ''; // Clear value
+                });
+
+                // Append the cloned date-can element to the date-container
+                dateContainer.appendChild(newDate);
+            });
 
 
 

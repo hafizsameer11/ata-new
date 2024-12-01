@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="{{ asset('website/css/product-view.css') }}">
     <link rel="stylesheet" href="{{ asset('website/css/animtion.css') }}">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <style>
         .contact-info-item {
             margin-bottom: 15px;
@@ -125,6 +127,7 @@
             left: 0;
             z-index: 10;
         }
+
         @media screen and (max-width:1042px) {
             #collapseExample {
                 position: static;
@@ -138,39 +141,49 @@
                 border-bottom-left-radius: 10px !important;
                 /* Bottom-right corner */
             }
+
             .filter-bar {
                 align-items: center;
                 height: fit-content;
                 justify-content: center;
             }
+
             .filter {
                 height: fit-content;
                 /* border-right: 1px; */
             }
         }
-        @media screen and (max-width:768px){
+
+        @media screen and (max-width:768px) {
             .filter {
                 height: fit-content;
                 border-right: none;
                 width: 100% !important;
             }
-            .filter > div{
+
+            .filter>div {
                 margin-block: 20px;
                 width: 100% !important;
             }
+
             .filter-dropdown {
                 width: 100% !important;
             }
-            #dropdown1 >  div
-            {
+
+            #dropdown1>div {
                 display: flex;
                 flex-direction: row;
                 width: 100%;
                 justify-content: space-between;
                 align-items: center;
             }
+
             .bol {
                 width: 100%;
+            }
+            .bol > button {
+                width: 100%;
+                height: 100%;
             }
         }
     </style>
@@ -189,6 +202,7 @@
     </script>
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <script>
         $(document).ready(function() {
@@ -207,6 +221,32 @@
                     icon: 'success',
                     confirmButtonText: 'OK'
                 });
+            });
+            $.ajax({
+                url: '{{ route('countries') }}',
+                method: 'GET',
+                success: function(data) {
+                    // Clear any previous options in the dropdown
+                    $('#countries').empty();
+                    $('#destination').empty();
+                    $('#destination').append(`<option value="">Where are you going?</option>`)
+                    // Iterate over the countries and append each to the dropdown
+                    $.each(data, function(index, country) {
+                        var encodedId = btoa(country.id); // base64 encode country ID
+                        var url = '{{ route('filterTour', ':id') }}'.replace(':id',encodedId); // Replace the :id in URL with encodedId
+                        // Append the list item to the dropdown
+                        $('#countries').append(`
+                            <li class="dropdown-item"><a href="${url}">${country.name}</a></li>
+                        `);
+                        $('#destination').append(`
+                            <option value="${country.id}">${country.name}</option>
+                        `);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    // Handle error here
+                    alert('Failed to load countries. Please try again later.');
+                }
             });
         });
     </script>

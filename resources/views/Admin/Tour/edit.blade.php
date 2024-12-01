@@ -114,6 +114,7 @@
                         <h1>The Plans</h1>
                         <div id="plan-container">
                             @foreach ($tour->plans as $index => $plan)
+                                <input type="hidden" name="plan_id[]" id="plan_id" value="{{ $plan->id }}">
                                 <div class="plan-can">
                                     <div class="form-group mb-2">
                                         <label for="plan_name_{{ $index }}">Plan Name</label>
@@ -185,28 +186,69 @@
                         <hr>
                         <div class="form-group my-4">
                             <label for="price">Tour price:</label>
-                            <input type="number" id="price" name="price" class="form-control" value="{{$tour->price}}"  required
-                                placeholder="Enter total price per ticket">
+                            <input type="number" id="price" name="price" class="form-control"
+                                value="{{ $tour->price }}" required placeholder="Enter total price per ticket">
                         </div>
                         <div class="form-group mb-4">
                             <label for="discount">Tour discount:</label>
-                            <input type="number" id="discount" name="discount" class="form-control" value="{{$tour->discount}}"  required
-                                placeholder="Enter discount perentage (10%,5%)">
+                            <input type="number" id="discount" name="discount" class="form-control"
+                                value="{{ $tour->discount }}" required placeholder="Enter discount perentage (10%,5%)">
                         </div>
-                        <div class="form-group mb-4">
+                        {{-- <div class="form-group mb-4">
                             <label for="date">Tour Date:</label>
-                            <input type="date" id="date" name="date" class="form-control"  value="{{$tour->date}}" required>
+                            <input type="date" id="date" name="date" class="form-control"
+                                value="{{ $tour->date }}" required>
                         </div>
                         <div class="form-group mb-4">
                             <label for="time">Tour Time:</label>
-                            <input type="time" id="time" name="time" class="form-control" value="{{$tour->time}}"  required>
+                            <input type="time" id="time" name="time" class="form-control"
+                                value="{{ $tour->time }}" required>
+                        </div> --}}
+                    </div>
+                    <div class="card p-4 mb-4">
+                        <h1 class="">Tour Type</h1>
+                        <hr>
+                        <div class="">
+                            <label for="one_day">Tour Type</label>
+                            <select name="one_day" id="one_day" class="form-control">
+                                <option value="0" {{ $tour->one_day ? '' : 'selected' }}>Package Tour</option>
+                                <option value="1" {{ $tour->one_day ? 'selected' : '' }}>Free&Easy tour</option>
+                            </select>
                         </div>
                     </div>
                     <div class="card p-4 mb-4">
-                        <div class="d-flex align-items-center gap-2">
-                            <input type="checkbox" name="one_day" id="one_day" class="m-0" value="1">
-                            <label for="one_day" class="m-0">One day</label>
+                        <h1 class="mb-4">Tour Dates</h1>
+                        @forelse ($tour->planTour as $planDate)
+                        <input type="hidden" name="plantour_id[]" id="plantour_id" value="{{$planDate->id}}">
+                            <h6 class="mt-4">Date {{ $loop->iteration }}</h6>
+                            <div class="date-can {{ $loop->first ? '' : 'mt-4' }}">
+                                <div class="">
+                                    <label for="date">Date</label>
+                                    <input type="date" name="date[]" value="{{ $planDate->date }}"
+                                        class="date form-control">
+                                </div>
+                                <div class="">
+                                    <label for="time">Time</label>
+                                    <input type="time" name="time[]" value="{{ $planDate->time }}"
+                                        class="time form-control">
+                                </div>
+                            </div>
+                        @empty
+                            <div class="date-can mt-4">
+                                <div class="">
+                                    <label for="date">Date</label>
+                                    <input type="date" name="date[]" class="date form-control">
+                                </div>
+                                <div class="">
+                                    <label for="time">Time</label>
+                                    <input type="time" name="time[]" class="time form-control">
+                                </div>
+                            </div>
+                        @endforelse
+                        <div id="date-container">
+                            <!-- Additional dates will be appended here -->
                         </div>
+                        <button id="add-date" type="button" class="btn btn-primary mt-3">Add Date</button>
                     </div>
                 </div>
             </div>
@@ -271,6 +313,29 @@
                 // Append the cloned plan to the container
                 planContainer.appendChild(newPlan);
             });
+            // Get the "Add Date" button (you need to add this button in your HTML)
+            const addDateButton = document.getElementById('add-date');
+
+            // Get the container where new date sections will be appended
+            const dateContainer = document.getElementById('date-container');
+
+            // Add click event listener to the "Add Date" button
+            addDateButton.addEventListener('click', () => {
+                // Get the first date-can element as a template
+                const firstDate = document.querySelector('.date-can');
+
+                // Clone the first date-can element
+                const newDate = firstDate.cloneNode(true);
+
+                // Clear all input fields in the cloned date-can element
+                newDate.querySelectorAll('input').forEach((field) => {
+                    field.value = ''; // Clear value
+                });
+
+                // Append the cloned date-can element to the date-container
+                dateContainer.appendChild(newDate);
+            });
+
         });
     </script>
 @endsection

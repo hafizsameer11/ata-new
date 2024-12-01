@@ -12,7 +12,7 @@
     </div>
 
     {{-- section 2 --}}
-    @include('Website.Layout.components.filter')
+    {{-- @include('Website.Layout.components.filter') --}}
 
 
     {{-- section 3 --}}
@@ -132,61 +132,7 @@
                             3 months ago
                         </p>
                         <p class="text-center">
-                            John wick
-                        </p>
-                    </div>
-                    <div class="swiper-slide d-flex flex-column align-items-center gap-2">
-                        <h5>
-                            @for ($i = 0; $i < 5; $i++)
-                                <i class="fa-solid fa-star" style="color: yellow;"></i>
-                            @endfor
-                        </h5>
-                        <p class="text-center px-4 heading">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, in alias, neque itaque amet
-                            perspiciatis deserunt corporis iste voluptas, rem accusantium explicabo. Rerum provident
-                            consequatur vero ipsa veniam fuga atque.
-                        </p>
-                        <p class="text-secondary">
-                            3 months ago
-                        </p>
-                        <p class="text-center">
-                            John wick
-                        </p>
-                    </div>
-                    <div class="swiper-slide d-flex flex-column align-items-center gap-2">
-                        <h5>
-                            @for ($i = 0; $i < 5; $i++)
-                                <i class="fa-solid fa-star" style="color: yellow;"></i>
-                            @endfor
-                        </h5>
-                        <p class="text-center px-4 heading">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, in alias, neque itaque amet
-                            perspiciatis deserunt corporis iste voluptas, rem accusantium explicabo. Rerum provident
-                            consequatur vero ipsa veniam fuga atque.
-                        </p>
-                        <p class="text-secondary">
-                            3 months ago
-                        </p>
-                        <p class="text-center">
-                            John wick
-                        </p>
-                    </div>
-                    <div class="swiper-slide d-flex flex-column align-items-center gap-2">
-                        <h5>
-                            @for ($i = 0; $i < 5; $i++)
-                                <i class="fa-solid fa-star" style="color: yellow;"></i>
-                            @endfor
-                        </h5>
-                        <p class="text-center px-4 heading">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, in alias, neque itaque amet
-                            perspiciatis deserunt corporis iste voluptas, rem accusantium explicabo. Rerum provident
-                            consequatur vero ipsa veniam fuga atque.
-                        </p>
-                        <p class="text-secondary">
-                            3 months ago
-                        </p>
-                        <p class="text-center">
-                            John wick
+                            John
                         </p>
                     </div>
                 </div>

@@ -9,9 +9,22 @@
     </div>
     <div class="container card mt-4 p-4">
         @if (session('success'))
-        <div class="alert alert-danger">{{ session('success') }}</div>
+            <div class="alert alert-danger">{{ session('success') }}</div>
         @endif
-        <h1>list</h1>
+        <div class='d-flex align-items-center justify-content-between '>
+            <h1>list</h1>
+            <div>
+                {{-- filtername --}}
+                <form action="{{ route('tour.filterForm') }}" method="get">
+                    @csrf
+                    <div class="input-group">
+                        <input type="text" name="search" class="form-control"
+                            placeholder="Search by name">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
         <div class="table-responsive">
             <table class="table">
                 <thead>
@@ -43,8 +56,8 @@
                             </td>
                             <td>
                                 <div class="d-flex flex-column gap-2 ">
-                                    <a href="{{route('tour.imagesUpload',$tour->id)}}" class="btn btn-sm btn-primary">Update images</a>
-                                    <a href="{{route('tour.single.edit',$tour->id)}}" class="btn btn-primary btn-sm">Update Price/Date/time</a>
+                                    <a href="{{ route('tour.imagesUpload', $tour->id) }}"
+                                        class="btn btn-sm btn-primary">Update images</a>
                                 </div>
                             </td>
                         </tr>
@@ -55,6 +68,9 @@
                     @endforelse
                 </tbody>
             </table>
+        </div>
+        <div>
+            {{ $tours->links('pagination::bootstrap-5') }}
         </div>
     </div>
 @endsection

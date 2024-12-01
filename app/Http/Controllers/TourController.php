@@ -18,17 +18,24 @@ class TourController extends Controller
      */
     public function index()
     {
-        $tours = Tour::with('images', 'country')->where('one_day', 0)->get();
+        $tours = Tour::with('images', 'country')->where('one_day', 0)->orderBy('id','DESC')->paginate(10);
         return view('Admin.Tour.list', compact('tours'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
+        $type = $request->type;
+        if ($request->type && $type == 1){
+            $countries = Country::where('status', 1)->get();
+            $name = 1;
+            return view('Admin.Tour.create.detail', compact('countries', "name"));
+        }
+        $name = 0;
         $countries = Country::where('status', 1)->get();
-        return view('Admin.Tour.create.detail', compact('countries'));
+        return view('Admin.Tour.create.detail', compact('countries','name'));
     }
 
     /**
@@ -57,6 +64,11 @@ class TourController extends Controller
             'single_room' => 'required|numeric',
             'twin_room' => 'required|numeric',
             'child_room' => 'required|numeric',
+            'one_day' => 'nullable',
+            'date' => 'nullable|array',
+            'date.*' => 'nullable|date',
+            'time' => 'nullable|array',
+            'time.*' => 'nullable',
         ]);
 
 
@@ -75,9 +87,17 @@ class TourController extends Controller
             'price' => $request->price,
             'child_room' => $request->child_room,
             'discount' => $request->discount,
-            'date' => $request->date,
-            'time' => $request->time,
+            'one_day' => $request->one_day
         ]);
+
+
+        // Save the tour plans
+        foreach ($request->date as $index => $date) {
+            $tour->planTour()->create([
+                'date' => $date,
+                'time' => $request->time[$index],
+            ]);
+        }
         // Save the tour plans
         foreach ($request->plan_name as $index => $planName) {
             Tourplan::create([
@@ -97,12 +117,13 @@ class TourController extends Controller
                 ]);
             }
         }
-        Tempimage::where('status', 0)->get();
-        // usign forach deleting iamge from foler and then el
-        foreach (Tempimage::where('status', 0)->get() as $image) {
-            $image->delete();
-            $image->image->delete();
+        // delete all row except th images of tour->images 
+        $tempImages = Tempimage::whereNotIn('image', $request->images)->get();
+        foreach ($tempImages as $key => $value) {
+            \Storage::disk('public')->delete($value->image);
+            $value->delete();
         }
+        Tempimage::where('status', 0)->delete();
 
 
         // Return success response
@@ -130,7 +151,7 @@ class TourController extends Controller
      */
     public function show(string $id)
     {
-        $tour = Tour::with('images', 'plans', 'country')->find($id);
+        $tour = Tour::with('images', 'plans', 'country','planTour')->find($id);
         // return $tour;
         return view('Admin.Tour.show', compact('tour'));
     }
@@ -170,7 +191,11 @@ class TourController extends Controller
             'single_room' => 'required|numeric',
             'twin_room' => 'required|numeric',
             'child_room' => 'required|numeric',
-            'one_day' => 'nullable'
+            'one_day' => 'nullable',
+            'date' => 'nullable|array',
+            'date.*' => 'nullable|date',
+            'time' => 'nullable|array',
+            'time.*' => 'nullable',
         ]);
 
         $tour = Tour::findOrFail($id);
@@ -188,8 +213,6 @@ class TourController extends Controller
             'child_room',
             'price',
             'discount',
-            'date',
-            'time',
             'one_day'
         ]));
 
@@ -203,6 +226,17 @@ class TourController extends Controller
                     'name' => $planName,
                     'description' => $request->plan_description[$index],
                     'city' => $request->city[$index],
+                ]
+            );
+        }
+        foreach ($request->date as $index => $date) {
+            $plantour_id = $request->plantour_id[$index] ?? null;
+            Plantour::updateOrCreate(
+                ['id' => $plantour_id],
+                [
+                    'tour_id' => $tour->id,
+                    'date' => $date,
+                    'time' => $request->time[$index],
                 ]
             );
         }
@@ -269,7 +303,18 @@ class TourController extends Controller
 
     public function One_day_index()
     {
-        $tours = Tour::with('images', 'country')->where('one_day', 1)->get();
+        $tours = Tour::with('images', 'country')->where('one_day', 1)->paginate(10);
+        return view('Admin.Tour.list', compact('tours'));
+    }
+
+
+
+    public function filterForm(Request $request){
+        $searchTerm = $request->input('search');
+
+        $tours = Tour::when($searchTerm, function ($query, $searchTerm) {
+            $query->where('name', 'like', '%' . $searchTerm . '%');
+        })->paginate(10);
         return view('Admin.Tour.list', compact('tours'));
     }
 }
